@@ -4,6 +4,8 @@ import "../../flow/config";
 import { useState, useEffect } from "react";
 import * as fcl from "@onflow/fcl";
 
+import Match from '@/components/Widgets/Match'
+
 export default function Home() {
 
   const [user, setUser] = useState({loggedIn: null})
@@ -117,6 +119,15 @@ export default function Home() {
         }
         <div>hola</div>
         <Link href='/sports'>Sports</Link>
+        <Match
+          nameA='Mexico'
+          nameB='Peru'
+          scoreA={1}
+          scoreB={0}
+          startDate='live'
+          bets={2}
+          liquidity={1000}
+        />
       </main>
     </div>
   )
