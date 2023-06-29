@@ -14,9 +14,11 @@
 :root {
     --black: #000000;
     --white: #FFFFFF;
-    --white-filter: invert(100%);
+    --white-filter: invert(99%) sepia(4%) saturate(5632%) hue-rotate(289deg) brightness(117%) contrast(100%); /* from black svg to white svg icon */
 
     --pri-color: #6DEB94;
+    --pri-color-filter: invert(85%) sepia(31%) saturate(702%) hue-rotate(73deg) brightness(95%) contrast(94%);
+    --pri-color-hover: #49b66c;
 
     --sec-color: #172131;
 
@@ -28,6 +30,7 @@
     --stroke-color: #222E40;
 
     --text-color: #FFFFFF;
+    --text-color-black: #000000;
 
     --sec-text-color: #6C7C94;
 
