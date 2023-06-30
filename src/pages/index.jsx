@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import * as fcl from "@onflow/fcl";
 
 import Match from '@/components/Widgets/Match'
+import NBA from '@/components/Protocols/NBA'
 
 export default function Home() {
 
@@ -128,6 +129,7 @@ export default function Home() {
           bets={2}
           liquidity={1000}
         />
+        <NBA />
       </main>
     </div>
   )
