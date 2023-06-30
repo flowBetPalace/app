@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/assets/styles/globals.css'
 import { useEffect } from 'react'
-import Layout from '@/components/Layout'
+import Layout from '@/components/Layouts/Layout'
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
