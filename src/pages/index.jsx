@@ -7,6 +7,10 @@ import * as fcl from "@onflow/fcl";
 import Match from '@/components/Widgets/Match'
 import NBA from '@/components/Protocols/NBA'
 
+import styleHome from '@/assets/styles/Home.module.css'
+
+import HomeCard from '@/components/Widgets/HomeCard';
+
 export default function Home() {
 
   const [user, setUser] = useState({loggedIn: null})
@@ -108,28 +112,32 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>FCL Quickstart with NextJS</title>
+        <title>FlowBetPalace</title>
         <meta name="description" content="My first web3 app on Flow!" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <main>
-        <h1>Flow App</h1>
-        {user.loggedIn
-          ? <AuthedState />
-          : <UnauthenticatedState />
-        }
-        <div>hola</div>
-        <Link href='/sports'>Sports</Link>
-        <Match
-          nameA='Mexico'
-          nameB='Peru'
-          scoreA={1}
-          scoreB={0}
-          startDate='live'
-          bets={2}
-          liquidity={1000}
-        />
-        <NBA />
+      <main className={styleHome.main}>
+        <header>
+          <div className="container">
+            <HomeCard />
+            <h1>Flow App</h1>
+            {user.loggedIn
+              ? <AuthedState />
+              : <UnauthenticatedState />
+            }
+            <Match
+              nameA='Mexico'
+              nameB='Peru'
+              scoreA={1}
+              scoreB={0}
+              startDate='live'
+              bets={2}
+              liquidity={1000}
+            />
+
+            <NBA />
+          </div>
+        </header>
       </main>
     </div>
   )

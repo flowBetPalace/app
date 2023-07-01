@@ -1,0 +1,4 @@
+/* --------- BUTTONS */
+/* Green Button */
+.btnTypeOne { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 4px; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; }
+.btnTypeOne:hover { background-color: var(--pri-color-hover); }

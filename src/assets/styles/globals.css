@@ -34,14 +34,17 @@
 
     --sec-text-color: #6C7C94;
 
-    --font-size-xl: ;
-    --font-size-l: ;
+    --font-size-title: 2.625rem;
+    --font-size-subtitle: 1.5rem;
+    --font-size-xl: 2.5rem;
+    --font-size-l: 2rem;
     --font-size-m: ;
     --font-size-s: ;
     --font-size-xs: ;
-    --font-size: ;
+    --font-size: 1rem;
 
 }
 
 * { box-sizing: border-box; padding: 0; margin: 0; }
-body { color: var(--text-color); background: var(--bg-color);}
+body { font-family: 'Outfit', sans-serif ;color: var(--text-color); background: var(--bg-color);}
+body { background-image: url('/imgs/landing-bg-img.png'); background-repeat: no-repeat; background-size: contain;}
