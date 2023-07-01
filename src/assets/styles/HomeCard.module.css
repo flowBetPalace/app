@@ -1,0 +1,4 @@
+.Homecard { background-color: var(--ter-color); border-radius: 10px; border: 1px solid var(--stroke-color); background-image: url('/imgs/landing-banner-img.png'); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%; }
+.Homecard .content { width: 50%; align-items: center; text-align: center; margin: 2rem auto;}
+.title { font-size: var(--font-size-title);}
+.subtitle { font-size: var(--font-size-subtitle); font-weight: 400; display: inline-flex; align-items: center; gap: .6rem;}
