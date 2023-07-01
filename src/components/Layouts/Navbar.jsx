@@ -84,8 +84,8 @@ export default function Navbar() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/events" className={styles.navLink}>
-                                    Events
+                                <Link href="/mybets" className={styles.navLink}>
+                                    My bets
                                 </Link>
                             </li>
                         </ul>

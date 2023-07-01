@@ -11,13 +11,13 @@
 .center { flex: 3 0 auto; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center; gap: 2rem; }
 .center ul {  display: flex; padding: 0; margin: 0; list-style: none; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-evenly; gap: 2rem; width: 60%; text-align: center; }
 .center ul li { flex: 1 0 auto; }
-.center ul li .navLink { color: var(--text-color); font-size: var(--font-size); font-weight: 400; line-height: 1; text-decoration: none; transition: 0.5s; }
+.center ul li .navLink { color: var(--text-color); font-size: var(--font-size-s); font-weight: 400; line-height: 1; text-decoration: none; transition: 0.5s; }
 .center ul li .navLink:hover { color: var(--pri-color); }
 
 /* Right part */
 .right { flex: 1 0 auto; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: flex-end; align-items: stretch; gap: 1rem; }
 .connectBtn { position: relative; }
-.connectBtn button { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 4px; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; }
+.connectBtn button { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 4px; padding: .6rem 1rem; font-size: var(--font-size-s); line-height: 1; font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; }
 .connectBtn:hover button { background-color: var(--pri-color-hover); }
 .connectBtn button img { width: auto; height: 1rem; margin-left: .4rem; transition: 0.2s; transform: rotate(180deg); display: inline-block;}
 .connectBtn:hover button img { transform: rotate(0deg); }

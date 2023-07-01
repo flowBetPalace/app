@@ -1,4 +1,18 @@
-/* --------- BUTTONS */
+/* -------BASIC ------ */
+.main { padding-top: 3rem; padding-bottom: 6rem; } 
+
+/* ------- FONTS -------- */
+.fontL { font-size: var(--font-size-l);}
+
+/* --------- BUTTONS -------*/
 /* Green Button */
-.btnTypeOne { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 4px; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; }
+.btnTypeOne { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; }
 .btnTypeOne:hover { background-color: var(--pri-color-hover); }
+
+/*  White Button */
+.btnTypeTwo { background-color: var(--white); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; }
+.btnTypeTwo:hover { background-color: var(--white-hover);}
+
+/* Tabbed Navigation Button */
+.btnTypeThree.active { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; }
+

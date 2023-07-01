@@ -8,6 +8,7 @@ import Match from '@/components/Widgets/Match'
 import NBA from '@/components/Protocols/NBA'
 
 import styleHome from '@/assets/styles/Home.module.css'
+import styleGlobal from '@/assets/styles/Global.module.css'
 
 import HomeCard from '@/components/Widgets/HomeCard';
 
@@ -116,11 +117,17 @@ export default function Home() {
         <meta name="description" content="My first web3 app on Flow!" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <main className={styleHome.main}>
+      <main className={styleGlobal.main}>
         <header>
           <div className="container">
             <HomeCard />
-            <h1>Flow App</h1>
+            <div className={styleHome.subtitleContainer}>
+              <p className={styleGlobal.fontL}>🔥 Hot matches</p>
+              <Link href="#" className={styleGlobal.btnTypeTwo}>
+                View all
+              </Link>
+
+            </div>
             {user.loggedIn
               ? <AuthedState />
               : <UnauthenticatedState />
