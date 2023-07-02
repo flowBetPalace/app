@@ -44,16 +44,22 @@ export default function Sports(){
                                 ⚽ Soccer
                             </div>
                             <div
+                                className={currentItem === "nfl" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
+                                onClick={() => handleTabClick("nfl")}
+                            >
+                                ⚽ American Football
+                            </div>
+                            <div
                                 className={currentItem === "basketball" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
                                 onClick={() => handleTabClick("basketball")}
                             >
                                 🏀 Basketball
                             </div>
                             <div
-                                className={currentItem === "tennis" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
-                                onClick={() => handleTabClick("tennis")}
+                                className={currentItem === "mma" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
+                                onClick={() => handleTabClick("mma")}
                             >
-                                🎾 Tennis
+                                🥊 MMA(UFC)
                             </div>
                             <div
                                 className={currentItem === "box" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
@@ -67,14 +73,24 @@ export default function Sports(){
                             >
                                 🏎️ Formula 1
                             </div>
+                            <div
+                                className={currentItem === "formula1" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
+                                onClick={() => handleTabClick("formula1")}
+                            >
+                                🏍️ Moto Gp
+                            </div>
                             </div>
 
                             {/* Render the content based on the selected tab */}
                             {currentItem === "soccer" && <div className={styleSports.tabContent}>Soccer Content</div>}
                             {currentItem === "basketball" && <div className={styleSports.tabContent}>Basketball Content</div>}
-                            {currentItem === "tennis" && <div className={styleSports.tabContent}>Tennis Content</div>}
+                            {currentItem === "mma" && <div className={styleSports.tabContent}>mma Content</div>}
                             {currentItem === "box" && <div className={styleSports.tabContent}>Boxing Content</div>}
                             {currentItem === "formula1" && <div className={styleSports.tabContent}>Formula 1 Content</div>}
+                            {currentItem === "motogp" && <div className={styleSports.tabContent}>Moto Gp Content</div>}
+                            {currentItem === "nfl" && <div className={styleSports.tabContent}>NFL American Football Content</div>}
+
+
 
                     
                     </div>
