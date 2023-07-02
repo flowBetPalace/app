@@ -47,7 +47,7 @@ export default function Sports(){
                                 className={currentItem === "nfl" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
                                 onClick={() => handleTabClick("nfl")}
                             >
-                                ⚽ American Football
+                                🏉 American Football
                             </div>
                             <div
                                 className={currentItem === "basketball" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
@@ -74,8 +74,8 @@ export default function Sports(){
                                 🏎️ Formula 1
                             </div>
                             <div
-                                className={currentItem === "formula1" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
-                                onClick={() => handleTabClick("formula1")}
+                                className={currentItem === "motogp" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
+                                onClick={() => handleTabClick("motogp")}
                             >
                                 🏍️ Moto Gp
                             </div>
