@@ -95,6 +95,8 @@ export default function createBet() {
             <input onChange={handleInput} value={formData.description} name="description" />
             <label>category(basket,football,racing,ufc)</label>
             <input onChange={handleInput} value={formData.category} name="category" />
+            <label>league icon frontend(nfl,laliga,ufc,motogp,f1)</label>
+            <input onChange={handleInput} value={formData.imageLink} name="imageLink" />
             <label>start date (timestamp)</label>
             <input type="number" onChange={handleInput} value={formData.startDate} name="startDate" />
             <label>end date (timestamp)</label>
