@@ -12,13 +12,14 @@ export default function Sports() {
     const BetUuid = router.query.betuuid;
     const [ betData, setBetData ] = useState([]);
     const [ loadingBetData, setLoadingBetData] = useState(true);
+    const [ childBetsData, setChildBetsData ] = useState([]);
+    const [ loadingChildBets, setLoadingChildBets] = useState(true);
 
     async function getBetData() {
-        if(BetUuid==undefined){
+        if(BetUuid==undefined || loadingBetData == false){
             return
         }
-        console.log(BetUuid,typeof(BetUuid))
-        console.log('fetching')
+        
         const response = await fcl.query({
             cadence: `
                 import FlowBetPalace from 0x036703c904a81123
@@ -101,11 +102,10 @@ export default function Sports() {
     }
 
     async function getChildBets(){
-        if(BetUuid==undefined){
+        if(BetUuid==undefined || loadingChildBets == false){
             return
         }
-        console.log(BetUuid,typeof(BetUuid))
-        console.log('fetching child bets')
+        
         const response = await fcl.query({
             cadence: `
                 import FlowBetPalace from 0x036703c904a81123
@@ -142,6 +142,8 @@ export default function Sports() {
             ]
         },)
         console.log('child bets response',response)
+        setChildBetsData(response)
+        setLoadingChildBets(false)
     }
     useEffect(() => {
         try{
