@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link';
 import "../../flow/config";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import * as fcl from "@onflow/fcl";
 
 import Match from '@/components/Widgets/Match'
@@ -12,11 +12,17 @@ import styleGlobal from '@/assets/styles/Global.module.css'
 
 import HomeCard from '@/components/Widgets/HomeCard';
 
+import { DataContext } from '@/context/DataContext';
+
+import matchesData from "@/matches.json";
+
 export default function Home() {
 
   const [user, setUser] = useState({loggedIn: null})
   const [name, setName] = useState('')
   const [transactionStatus, setTransactionStatus] = useState(null) // NEW
+  const {categories, setCategories } = useContext(DataContext);
+
 
   useEffect(() => fcl.currentUser.subscribe(setUser), [])
 
@@ -126,12 +132,30 @@ export default function Home() {
               <Link href="#" className={styleGlobal.btnTypeTwo}>
                 View all
               </Link>
-
             </div>
-            {user.loggedIn
+            {/* {user.loggedIn
               ? <AuthedState />
               : <UnauthenticatedState />
-            }
+            } */}
+
+
+            {matchesData.map((match, index) => (
+              <Match
+              category={match.category}
+              nameA={match.nameA}
+              nameB={match.nameB}
+              scoreA={match.scoreA}
+              scoreB={match.scoreB}
+              winner={match.winner}
+              startDate={match.startDate}
+              bets={match.bets}
+              liquidity={match.liquidity}
+              matchContractAddress={match.matchContractAddress}              
+              />
+            )
+            )}
+
+
             <Match
               nameA='Mexico'
               nameB='Peru'
@@ -141,6 +165,9 @@ export default function Home() {
               bets={2}
               liquidity={1000}
             />
+
+
+
 
             <NBA />
           </div>

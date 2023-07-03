@@ -36,18 +36,21 @@
 
     --sec-text-color: #6C7C94;
 
+    --red-bg: #CC4242;
+
     --font-size-title: 2.625rem;
     --font-size-subtitle: 1.5rem;
     --font-size-xl: 2.5rem;
     --font-size-l: 2rem;
     --font-size-m: ;
     
-    --font-size: 1.125rem;
-    --font-size-s: 1rem;
-    --font-size-xs: ;
+    --font-size: 1.125rem; /* 18px */
+    --font-size-s: 1rem; /* 16 px */
+    --font-size-xs: 0.875rem; /* 14pz */
 
 }
 
 * { box-sizing: border-box; padding: 0; margin: 0; }
 body { font-family: 'Outfit', sans-serif ;color: var(--text-color); background: var(--bg-color); height: 100vh;}
 body { background-image: url('/imgs/landing-bg-img.png'); background-repeat: no-repeat; background-size: contain;}
+p { margin-bottom: 0;}

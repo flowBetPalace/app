@@ -4,11 +4,14 @@ import styleGlobal from '@/assets/styles/Global.module.css'
 import styleSports from '@/assets/styles/StyleSports.module.css'
 import Link from 'next/link'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+
+import { DataContext } from '@/context/DataContext'
 
 export default function Sports(){
 
     const [currentItem, setCurrentItem] = useState("soccer");
+    const { categories, setCategories } = useContext(DataContext);
 
     const handleTabClick = (item) => {
         setCurrentItem(item);
@@ -47,7 +50,7 @@ export default function Sports(){
                                 className={currentItem === "nfl" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
                                 onClick={() => handleTabClick("nfl")}
                             >
-                                🏉 American Football
+                                🏉 Football
                             </div>
                             <div
                                 className={currentItem === "basketball" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
@@ -60,12 +63,6 @@ export default function Sports(){
                                 onClick={() => handleTabClick("mma")}
                             >
                                 🥊 MMA(UFC)
-                            </div>
-                            <div
-                                className={currentItem === "box" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
-                                onClick={() => handleTabClick("box")}
-                            >
-                                🥊 Box
                             </div>
                             <div
                                 className={currentItem === "formula1" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}

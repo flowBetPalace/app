@@ -1,0 +1,18 @@
+.match { border: 1px solid var(--stroke-color); background-color: var(--ter-color); border-radius: 10px; padding: 1rem .4rem; margin-bottom: 1.5rem;}
+.status { display: flex; gap: 1rem;}
+.statusLive { background-color: var(--red-bg); display: inline-flex; align-items: center; border-radius: 5px; padding: .1rem .6rem; gap: .4rem;}
+.statusLive .statusLiveSquare { margin-bottom: 0; font-size: var(--font-size-s); }
+.statusTimeLeft { font-size: var(--font-size-s); color: var(--sec-text-color);}
+
+.names { display: inline-flex; flex-direction: column; justify-content: space-around; gap: .8rem; margin-bottom: 2rem; }
+.names .nameAContainer, .names .nameBContainer { display: flex; gap: 1.5rem; justify-content: space-between;}
+.nameA, .nameB { font-size: var(--font-size);}
+.nameAScore, .nameBScore { background-color: var(--sec-color); padding: .2rem .7rem; border-radius: 5px;}
+
+.statusAndInfo { display: flex;}
+.statusAndInfo .info { color: var(--sec-text-color);}
+.statusAndInfo .infoGreen { color: var(--pri-color);}
+
+.viewMatch { background-color: var(--sec-color); color: var(--text-color); text-decoration: none; border-radius: 5px; padding: .6rem 1rem; display: inline-block; display: flex; align-items: center; font-family: var(--font-size-s); }
+
+.secondCol { display: flex; justify-content: end;}

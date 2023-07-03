@@ -1,0 +1,36 @@
+[
+    {
+        "category": "soccer",
+        "nameA": "Mexico",
+        "nameB": "Peru",
+        "scoreA": 1,
+        "scoreB": 0,
+        "winner": null,
+        "startDate": "live",
+        "bets": 2,
+        "liquidity": 1000,
+        "matchContractAddress": "0x1234"
+    },
+    {
+        "category": "soccer",
+        "nameA": "Spain",
+        "nameB": "Brazil",
+        "scoreA": 2,
+        "scoreB": 1,
+        "winner": null,
+        "startDate": "live",
+        "bets": 3,
+        "liquidity": 2000,
+        "matchContractAddress": "0x12345"
+    },
+    {
+        "category": "mma",
+        "nameA": "Connor McGregor",
+        "nameB": "Logan Paul",
+        "winner": null,
+        "startDate": "live",
+        "bets": 3,
+        "liquidity": 2000,
+        "matchContractAddress": "0x123456"
+    }
+]

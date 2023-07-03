@@ -9,6 +9,7 @@ export const DataContext = createContext(null);
 export const DataProvider = ({children}) => {
     // const [userWallet, setUserWallet] = useState(null);
     const [user, setUser] = useState({loggedIn: null})
+    const [categories, setCategories] = useState(["soccer", "nfl", "basketball", "mma", "formula1", "motogp"]);
 
     // useEffect(() => {
     //     // Connect with Blocto using FCL
@@ -20,7 +21,7 @@ export const DataProvider = ({children}) => {
     // }, []);
 
     return (
-        <DataContext.Provider value={{ user, setUser }}>
+        <DataContext.Provider value={{ user, setUser, categories, setCategories }}>
             {children}
         </DataContext.Provider>
     );
