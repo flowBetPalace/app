@@ -39,7 +39,7 @@ export default function createBet() {
         // NEW
         const transactionId = await fcl.mutate({
             cadence: `
-            import FlowBetPalace from 0x2cd0b7f034ab103d
+            import FlowBetPalace from 0x036703c904a81123
 
             transaction(name: String, startDate: UFix64, endDate: UFix64, description: String, imagelink: String, category: String, stopAcceptingBetsDate: UFix64) {
                 prepare(acct: AuthAccount) {
@@ -93,7 +93,7 @@ export default function createBet() {
             <input onChange={handleInput} value={formData.name} name="name" />
             <label>description</label>
             <input onChange={handleInput} value={formData.description} name="description" />
-            <label>category(basket,football,racing,ufc)</label>
+            <label>category(basket,soccer,formula1,mma,nfl,motogp)</label>
             <input onChange={handleInput} value={formData.category} name="category" />
             <label>league icon frontend(nfl,laliga,ufc,motogp,f1)</label>
             <input onChange={handleInput} value={formData.imageLink} name="imageLink" />
