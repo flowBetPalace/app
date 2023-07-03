@@ -66,12 +66,14 @@ export default function createBet() {
             args: (arg, t) => [                
                 arg(formData.BetUuid, t.String),
                 arg(formData.name, t.String),
-                arg(formData.options.split(","), t.Array),
+                arg(formData.options.split(","), t.Array(t.String))
+                //arg(formData.options.split(",").map((option) => arg(option, t.String)), t.Array(t.String))  
+
             ],
             payer: fcl.authz,
             proposer: fcl.authz,
             authorizations: [fcl.authz],
-            limit: 50
+            limit: 200
         })
         try {
             fcl.tx(transactionId).subscribe(res => console.log("res", res))
