@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useContext, useState, useEffect } from 'react'
 import { DataContext } from '@/context/DataContext'
 import { useRouter } from "next/router";
+import ChildBet from '@/components/Widgets/ChildBet';
 
 export default function Sports() {
     const router = useRouter();
@@ -156,8 +157,24 @@ export default function Sports() {
 
 
     },[BetUuid])
+
+    const renderedChildBets = childBetsData.map(childBet=>
+        <ChildBet 
+            uuid={childBet.uuid}
+            name={childBet.name}
+            options={childBet.options}
+            winnerOptionsIndex={childBet.winnerOptionsIndex}
+            odds={childBet.odds}
+            startDate={childBet.startDate}
+            stopAcceptingBetsDate={childBet.stopAcceptingBetsDate}
+            endDate={childBet.endDate}
+        />
+    )
+
     return (
-        <></>
+        <>
+            {renderedChildBets}
+        </>
 
     )
 }
