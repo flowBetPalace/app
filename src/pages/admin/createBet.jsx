@@ -56,7 +56,8 @@ export default function createBet() {
                     //store the newBet to storage
                     // /storage/"bet"+bet.uuid.toString()
                     acct.save(<- newBet, to: betStoragePath)
-                    log(betStoragePath)
+                    //create a public link for access the bet 
+                    acct.link<&AnyResource{FlowBetPalace.BetPublicInterface}>(betPublicPath,target:betStoragePath)
                     log("bet saved correctly in account storage")
                 }
                 
