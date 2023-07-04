@@ -16,6 +16,34 @@ export default function Sports() {
     const [ childBetsData, setChildBetsData ] = useState([]);
     const [ loadingChildBets, setLoadingChildBets] = useState(true);
 
+    function formatDate (betData) {
+        const endDate = betData.endDate;
+        console.log(endDate);
+
+        const unixTimestamp = parseInt(endDate); // Convert the string to a number
+
+        const date = new Date(unixTimestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
+
+        // Use the Date object methods to extract the desired date components
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // Months are zero-based, so add 1
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        // Create a formatted date string
+        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        // Use the formattedDate in your app
+        console.log(formattedDate);
+
+        return formattedDate;
+
+    }
+
+
+
     async function getBetData() {
         if(BetUuid==undefined || loadingBetData == false){
             return
@@ -166,6 +194,9 @@ export default function Sports() {
                     <div className={styleBet.betTitle}>
                         <p className={styleBet.name}>{betData.name}</p>
                         <p className={styleBet.status}>{betData.endDate} Aquí debemos de poner ya sea Live/TimeRemaining o Ended</p>
+                        <p>{formatDate(betData)}</p>
+                        <p>hola</p>
+                        {/* <p>{formattedDate}</p> */}
                     </div>
                     <button href="#" className={styleGlobal.btnTypeTwo}>
                         Claim reward
