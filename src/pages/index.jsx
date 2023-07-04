@@ -156,15 +156,7 @@ export default function Home() {
             )}
 
 
-            <Match
-              nameA='Mexico'
-              nameB='Peru'
-              scoreA={1}
-              scoreB={0}
-              startDate='live'
-              bets={2}
-              liquidity={1000}
-            />
+          
 
 
 
