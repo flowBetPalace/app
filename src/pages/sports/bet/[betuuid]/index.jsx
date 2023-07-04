@@ -220,26 +220,7 @@ export default function Sports() {
                 <div>
                     {/* {childBetsData[0].name} */}
 
-                    {childBetsData.map((bet, index) => (
-                    <div key={index} className={styleBet.childBet}>
-                        <p className={styleBet.childName}>{bet.name}</p>
-                        <div className={styleBet.childContainer}>
-                            {bet.options.map((option, optionIndex) => (
-                                <>
-                                <div key={optionIndex} className={styleBet.childSelection}>
-                                    <p className={styleBet.option}>
-                                        {option}
-                                    </p>
-                                    <p className={styleBet.odds}>
-                                      {bet.odds[optionIndex]}
-                                    </p>
-                                </div>
-                            </>
-                            ))}
-                        </div>
-                        <br />
-                    </div>
-                    ))}
+                    {renderedChildBets}
                 </div>
                 
                 

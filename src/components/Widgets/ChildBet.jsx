@@ -1,6 +1,25 @@
+import styleBet from '@/assets/styles/StyleBet.module.css'
 
 export default function ChildBet({uuid,name,options,winnerOptionsIndex,odds,startDate,stopAcceptingBetsDate,endDate}){
 
-    return <div>
-    </div>
+     
+    return  <div className={styleBet.childBet}>
+                        <p className={styleBet.childName}>{name}</p>
+                        <div className={styleBet.childContainer}>
+                            {options.map((option, optionIndex) => (
+                                <>
+                                <div key={optionIndex} className={styleBet.childSelection}>
+                                    <p className={styleBet.option}>
+                                        {option}
+                                    </p>
+                                    <p className={styleBet.odds}>
+                                      {odds[optionIndex]}
+                                    </p>
+                                </div>
+                            </>
+                            ))}
+                        </div>
+                        <br />
+            </div>
+    
 }
