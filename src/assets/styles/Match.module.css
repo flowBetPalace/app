@@ -15,7 +15,7 @@
 
 .viewMatch { background-color: var(--sec-color); color: var(--text-color); text-decoration: none; border-radius: 5px; padding: .6rem 1rem; display: inline-block; display: flex; align-items: center; font-family: var(--font-size-s); }
 
-.secondCol { display: flex; justify-content: end;}
+.secondCol { display: flex; justify-content: flex-end;}
 
 
 .main { padding-top: 3rem; padding-bottom: 6rem; }

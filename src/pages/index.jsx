@@ -141,6 +141,7 @@ export default function Home() {
 
             {matchesData.map((match, index) => (
               <Match
+              key={index}
               category={match.category}
               nameA={match.nameA}
               nameB={match.nameB}
@@ -150,7 +151,7 @@ export default function Home() {
               startDate={match.startDate}
               bets={match.bets}
               liquidity={match.liquidity}
-              matchContractAddress={match.matchContractAddress}              
+              matchContractAddress={match.matchContractAddress}
               />
             )
             )}
