@@ -13,7 +13,9 @@ export default function ChildBet({uuid,name,options,winnerOptionsIndex,odds,star
                         <div className={styleBet.childContainer}>
                             {options.map((option, optionIndex) => (
                                 <>
-                                <div key={optionIndex} className={styleBet.childSelection} onClick={()=>{setSelectedIndex(optionIndex)}}>
+                                <div key={optionIndex} className={styleBet.childSelection} onClick={()=>{
+                                    setSelectedIndex(optionIndex)
+                                    }} >
                                     <p className={styleBet.option}>
                                         {option} 
                                     </p>
@@ -24,6 +26,7 @@ export default function ChildBet({uuid,name,options,winnerOptionsIndex,odds,star
                             </>
                             ))}
                         </div>
+                        <button onClick={() => console.log(selectedIndex)}>Butoncito</button>
                         <br />
             </div>
     

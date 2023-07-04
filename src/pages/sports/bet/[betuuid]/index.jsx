@@ -219,7 +219,6 @@ export default function Sports() {
                 </div>
                 <div>
                     {/* {childBetsData[0].name} */}
-
                     {renderedChildBets}
                 </div>
                 
