@@ -7,7 +7,7 @@ import style from '@/assets/styles/Match.module.css'
 
 import matchesData from "@/matches.json";
 
-export default function Match({ nameA, nameB, scoreA, scoreB, startDate, bets, liquidity, matchHref, matchContractAddress }) {
+export default function Match({ nameA, nameB, scoreA, scoreB, startDate, bets, liquidity, matchContractAddress }) {
     return(
         <div className={style.match}>
             <div className='container'>
@@ -54,7 +54,7 @@ export default function Match({ nameA, nameB, scoreA, scoreB, startDate, bets, l
                         </div>
                     </div>
                     <div className={style.secondCol + ' col-6'}>
-                        <Link href={matchHref + '/' + matchContractAddress} className={style.viewMatch}>View match</Link>
+                        <Link href={'/match/' + matchContractAddress} className={style.viewMatch}>View match</Link>
                     </div>
                 </div>
             </div>
