@@ -2,6 +2,7 @@ import Head from 'next/head'
 import * as fcl from "@onflow/fcl";
 import styleGlobal from '@/assets/styles/Global.module.css'
 import styleSports from '@/assets/styles/StyleSports.module.css'
+import styleBet from '@/assets/styles/StyleBet.module.css'
 import Link from 'next/link'
 import { useContext, useState, useEffect } from 'react'
 import { DataContext } from '@/context/DataContext'
@@ -96,6 +97,7 @@ export default function Sports() {
             ]
         },)
         console.log('bets response',response)
+        console.log(BetUuid)
         setBetData(response)
         setLoadingBetData(false)
 
@@ -157,7 +159,49 @@ export default function Sports() {
 
     },[BetUuid])
     return (
-        <></>
+        <div className={styleBet.betSection}>
+            <div className="container">
+                {/* .category, .description, .endDate, imageLink, name, startDate, stopAcceptingBetsDate */}
+                <div className='d-flex justify-content-between'>
+                    <div className={styleBet.betTitle}>
+                        <p className={styleBet.name}>{betData.name}</p>
+                        <p className={styleBet.status}>{betData.endDate} Aquí debemos de poner ya sea Live/TimeRemaining o Ended</p>
+                    </div>
+                    <button href="#" className={styleGlobal.btnTypeTwo}>
+                        Claim reward
+                    </button>
+                </div>
+                <div>
+                    {/* {childBetsData[0].name} */}
+
+                    {childBetsData.map((bet, index) => (
+                    <div key={index} className={styleBet.childBet}>
+                        <p className={styleBet.childName}>{bet.name}</p>
+                        <div className={styleBet.childContainer}>
+                            {bet.options.map((option, optionIndex) => (
+                                <>
+                                <div key={optionIndex} className={styleBet.childSelection}>
+                                    <p className={styleBet.option}>
+                                        {option}
+                                    </p>
+                                    <p className={styleBet.odds}>
+                                      {bet.odds[optionIndex]}
+                                    </p>
+                                </div>
+                            </>
+                            ))}
+                        </div>
+                        <br />
+                    </div>
+                    ))}
+                </div>
+                
+                
+                
+                
+                
+            </div>   
+        </div>
 
     )
 }
