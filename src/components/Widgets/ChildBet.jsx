@@ -5,11 +5,10 @@ import Image from 'next/image'
 import * as fcl from "@onflow/fcl";
 
 export default function ChildBet({ uuid, matchTitle, name, options, winnerOptionsIndex, odds, startDate, stopAcceptingBetsDate, endDate }) {
-    const [selectedIndex, setSelectedIndex] = useState(null);
     const { user, BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable } = useContext(DataContext);
-    console.log('selected index',selectedIndex)
 
-    const onSubmitBuyBet = async (e) => {
+    const onSubmitBuyBet = async (e,index) => {
+        console.log('----',index)
         e.preventDefault();
         let amount = e.target.elements.amount.value
         // Check if amount is a whole number
@@ -85,7 +84,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
             args: (arg, t) => [
                 arg(amount, t.UFix64),
                 arg(uuid, t.String),
-                arg(parseInt(selectedIndex), t.Int64),
+                arg(`${index}`, t.Int64),
             ],
             payer: fcl.authz,
             proposer: fcl.authz,
@@ -103,7 +102,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
     const openBetModal = (index, name, bet, match) => {
         let profit = '-';
         const modalContent = (
-            <form onSubmit={onSubmitBuyBet} action=''>
+            <form onSubmit={(e)=>{onSubmitBuyBet(e,index)}} action=''>
                 <h6>{name}</h6>
                 <p>
                     <Image
@@ -124,7 +123,6 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                 )}
             </form>
         );
-        setSelectedIndex(index);
         setBetModalStatus('');
         setBetModalMessage(modalContent);
         setBetModalCloseable(true);
