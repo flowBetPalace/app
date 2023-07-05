@@ -18,7 +18,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         // NEW
         const transactionId = await fcl.mutate({
             cadence: `
-            import FlowBetPalace from 0x036703c904a81123
+            import FlowBetPalace from 91f91fa7da326c16
             import FlowToken from 0x7e60df042a9c0868
             transaction(amount: UFix64,uuid: String,optionIndex:UInt64) {
                 prepare(acct: AuthAccount) {
@@ -59,7 +59,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                     let profile <- acct.load<@FlowBetPalace.UserSwitchboard>(from: FlowBetPalace.userSwitchBoardStoragePath) ?? panic("user have not started his account")
             
                     // get admin account that stores resourced
-                    let accountFlowBetPalace = getAccount(0x036703c904a81123)
+                    let accountFlowBetPalace = getAccount(91f91fa7da326c16)
                     log("getting ref")
                     // get reference of the childBet resource
                     let childBetRef = accountFlowBetPalace.getCapability<&AnyResource{FlowBetPalace.ChildBetPublicInterface}>(PublicPath(identifier:"betchild".concat(uuid))!)

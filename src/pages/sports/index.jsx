@@ -42,14 +42,14 @@ export default function Sports() {
     async function getBets() {
         const response = await fcl.query({
             cadence: `
-                import FlowBetPalace from 0x036703c904a81123
+                import FlowBetPalace from 91f91fa7da326c16
 
                 // This script gets recent added bets
                 
                 pub fun main(category: String,skip: Int) :[[String]]{
                     let amountReturnedBets = 5
                     // Get the accounts' public account objects
-                    let acct1 = getAccount(0x036703c904a81123)
+                    let acct1 = getAccount(91f91fa7da326c16)
                 
                     // Get references to the account's receivers
                     // by getting their public capability
