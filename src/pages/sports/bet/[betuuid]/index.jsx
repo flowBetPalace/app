@@ -4,8 +4,10 @@ import styleGlobal from '@/assets/styles/Global.module.css'
 import styleSports from '@/assets/styles/StyleSports.module.css'
 import styleBet from '@/assets/styles/StyleBet.module.css'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useContext, useState, useEffect } from 'react'
 import { DataContext } from '@/context/DataContext'
+import BetModal from '@/components/Widgets/BetModal';
 import { useRouter } from "next/router";
 import ChildBet from '@/components/Widgets/ChildBet';
 
@@ -16,6 +18,8 @@ export default function Sports() {
     const [ loadingBetData, setLoadingBetData] = useState(true);
     const [ childBetsData, setChildBetsData ] = useState([]);
     const [ loadingChildBets, setLoadingChildBets] = useState(true);
+
+    const { BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable } = useContext(DataContext);
 
     function formatDate (betData) {
         const endDate = betData.endDate;
@@ -191,6 +195,7 @@ export default function Sports() {
     const renderedChildBets = childBetsData.map(childBet=>
         <ChildBet 
             uuid={childBet.uuid}
+            matchTitle={betData.name}
             name={childBet.name}
             options={childBet.options}
             winnerOptionsIndex={childBet.winnerOptionsIndex}
@@ -201,7 +206,8 @@ export default function Sports() {
         />
     )
 
-    return (
+    return <>
+        <BetModal />
         <div className={styleBet.betSection}>
             <div className="container">
                 {/* .category, .description, .endDate, imageLink, name, startDate, stopAcceptingBetsDate */}
@@ -229,5 +235,5 @@ export default function Sports() {
             </div>   
         </div>
 
-    )
+    </>
 }

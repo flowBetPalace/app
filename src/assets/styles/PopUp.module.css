@@ -1,0 +1,28 @@
+.darken { display: block; position: fixed; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .5); z-index: 6; }
+
+.modal { z-index: 7; position: fixed; background: var(--bg-color); top: 25%; left: 50%; transform: translateX(-50%); width: 45%; border-radius: .75rem; padding: 1rem 2rem; border: 1px solid var(--modal-border); box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.06); }
+.modalContainer {  }
+.content {  }
+
+.closeBtn { position: relative; float: right; z-index: 8; }
+.closeBtn button { background: unset; border: 0; outline: none; }
+.closeBtn button img { width: auto; height: 1.4rem; filter: var(--text-color-filter); }
+
+.img { position: relative; padding-top: 3rem; }
+.loadingWheel { position: relative; aspect-ratio: 1 / 1; width: 20%; max-width: 8rem; margin: 0 auto; }
+.wheel { border: .5rem solid var(--pri-color); border-radius: 50%; border-top: .5rem solid var(--loadingW-bg-color); width: 100%; height: 100%; position: absolute; top: 0; left: 0; -webkit-animation: spin 2s linear infinite; animation: spin 2s linear infinite; }
+.img img { filter: var(--modal-img); display: block; margin: 0 auto; width: 20%; max-width: 6rem; height: auto; }
+
+.text { position: relative; }
+.text p { color: var(text-color); margin-bottom: 0; font-weight: 400; line-height: 1.7; text-align: center; font-size: var(--font-size); padding: 2.5rem 0 1.5rem 0; }
+
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
