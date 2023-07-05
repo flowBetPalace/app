@@ -18,7 +18,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         // NEW
         const transactionId = await fcl.mutate({
             cadence: `
-            import FlowBetPalace from 91f91fa7da326c16
+            import FlowBetPalace from 0x91f91fa7da326c16
             import FlowToken from 0x7e60df042a9c0868
             transaction(amount: UFix64,uuid: String,optionIndex:UInt64) {
                 prepare(acct: AuthAccount) {
@@ -37,12 +37,14 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                         acct.save(<- userSwitchBoardResource,to:FlowBetPalace.userSwitchBoardStoragePath)
                     
                         //create a private link to the storage path
-                        acct.link<&FlowBetPalace.UserSwitchboard>(FlowBetPalace.userSwitchBoardPrivatePath,target:FlowBetPalace.userSwitchBoardStoragePath)
+                        acct.link<&AnyResource{FlowBetPalace.UserSwitchboardPublicInterface}>(FlowBetPalace.userSwitchBoardPublicPath,target:FlowBetPalace.userSwitchBoardStoragePath)
                         log("account switchboard created")
                         // destroy the resource as its null
                         destroy profilecopy
                     }else{
                         // save the extracted resource
+                        // We use the force-unwrap operator  to get the value
+                        // out of the optional. It aborts if the optional is nil
                         acct.save(<-profilecopy!,to:FlowBetPalace.userSwitchBoardStoragePath)
                         log("account switchboard was already created")
                     }
@@ -59,7 +61,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                     let profile <- acct.load<@FlowBetPalace.UserSwitchboard>(from: FlowBetPalace.userSwitchBoardStoragePath) ?? panic("user have not started his account")
             
                     // get admin account that stores resourced
-                    let accountFlowBetPalace = getAccount(91f91fa7da326c16)
+                    let accountFlowBetPalace = getAccount(0x91f91fa7da326c16)
                     log("getting ref")
                     // get reference of the childBet resource
                     let childBetRef = accountFlowBetPalace.getCapability<&AnyResource{FlowBetPalace.ChildBetPublicInterface}>(PublicPath(identifier:"betchild".concat(uuid))!)
@@ -74,6 +76,8 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                     profile.addBet(newBet: <-newUserBet)
             
                     // save the extracted resource
+                    // We use the force-unwrap operator  to get the value
+                    // out of the optional. It aborts if the optional is nil
                     acct.save(<-profile,to:FlowBetPalace.userSwitchBoardStoragePath)
                 }
             
@@ -138,7 +142,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                         {option}
                     </p>
                     <p className={styleBet.odds}>
-                        {odds[optionIndex]}
+                        {(1+parseFloat(odds[optionIndex])).toFixed(2)}
                     </p>
                 </div>
 

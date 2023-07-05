@@ -39,7 +39,7 @@ export default function createBet() {
         // NEW
         const transactionId = await fcl.mutate({
             cadence: `
-            import FlowBetPalace from 91f91fa7da326c16
+            import FlowBetPalace from 0x91f91fa7da326c16
 
             transaction(name: String, startDate: UFix64, endDate: UFix64, description: String, imagelink: String, category: String, stopAcceptingBetsDate: UFix64) {
                 prepare(acct: AuthAccount) {
@@ -47,15 +47,17 @@ export default function createBet() {
                     // Retrieve admin Reference of the admin resource
                     var acctAdminCapability = acct.getCapability(FlowBetPalace.adminPublicPath)
                     var acctAdminRef = acctAdminCapability.borrow<&AnyResource{FlowBetPalace.AdminInterface}>() ?? panic("Could not borrow admin reference")
-                
+
                     // create the new bet 
                     let newBet <- acctAdminRef.createBet(name: name, description: description, imageLink: imagelink,category: category,startDate: startDate ,endDate: endDate,stopAcceptingBetsDate:stopAcceptingBetsDate) 
-                
+
                     //get the bet storage path
                     let betStoragePath = newBet.storagePath
+                    let betPublicPath = newBet.publicPath
                     //store the newBet to storage
                     // /storage/"bet"+bet.uuid.toString()
                     acct.save(<- newBet, to: betStoragePath)
+
                     //create a public link for access the bet 
                     acct.link<&AnyResource{FlowBetPalace.BetPublicInterface}>(betPublicPath,target:betStoragePath)
                     log("bet saved correctly in account storage")
@@ -77,7 +79,7 @@ export default function createBet() {
             payer: fcl.authz,
             proposer: fcl.authz,
             authorizations: [fcl.authz],
-            limit: 50
+            limit: 100
         })
         try {
             fcl.tx(transactionId).subscribe(res => console.log("res",res))

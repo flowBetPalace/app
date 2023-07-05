@@ -56,11 +56,11 @@ export default function Sports() {
         
         const response = await fcl.query({
             cadence: `
-                import FlowBetPalace from 91f91fa7da326c16
+                import FlowBetPalace from 0x91f91fa7da326c16
 
                 pub fun main(uuid:String) :FlowBetPalace.BetDataStruct{
                     // Get the accounts' public account objects
-                    let acct1 = getAccount(91f91fa7da326c16)
+                    let acct1 = getAccount(0x91f91fa7da326c16)
                     //get bet path
                     let betPath = PublicPath(identifier: "bet".concat(uuid))!
                     // Get references to the account's receivers
@@ -77,7 +77,7 @@ export default function Sports() {
             
             `,
             // cadence: `
-            //     import FlowBetPalace from 91f91fa7da326c16
+            //     import FlowBetPalace from 0x91f91fa7da326c16
 
             //     pub struct BetDataStruct {
             //         pub let name: String
@@ -101,7 +101,7 @@ export default function Sports() {
 
             //     pub fun main(uuid:String) :BetDataStruct{
             //         // Get the accounts' public account objects
-            //         let acct1 = getAccount(91f91fa7da326c16)
+            //         let acct1 = getAccount(0x91f91fa7da326c16)
             //         //get bet path
             //         let betPath = PublicPath(identifier: "bet".concat(uuid))!
             //         // Get references to the account's receivers
@@ -143,11 +143,11 @@ export default function Sports() {
         
         const response = await fcl.query({
             cadence: `
-                import FlowBetPalace from 91f91fa7da326c16
+                import FlowBetPalace from 0x91f91fa7da326c16
 
                 pub fun main(uuid:String) :[FlowBetPalace.ChildBetStruct]{
                     // Get the accounts' public account objects
-                    let acct1 = getAccount(91f91fa7da326c16)
+                    let acct1 = getAccount(0x91f91fa7da326c16)
                     //get bet path
                     let betPath = PublicPath(identifier: "bet".concat(uuid))!
                     // Get references to the account's receivers
