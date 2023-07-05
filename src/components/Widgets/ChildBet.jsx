@@ -6,7 +6,6 @@ import Image from 'next/image'
 export default function ChildBet({uuid,matchTitle,name,options,winnerOptionsIndex,odds,startDate,stopAcceptingBetsDate,endDate}){
     const [selectedIndex,setSelectedIndex] = useState(null);
     const { user, BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable } = useContext(DataContext);
-
     const onClickBuyBet = () => {
         
     }
@@ -27,7 +26,7 @@ export default function ChildBet({uuid,matchTitle,name,options,winnerOptionsInde
                 <p>{match}</p>
                 <input type="number" placeholder='Enter $FLOW amount to bet' />
                 <p>Profit: {profit}</p>
-                {user !== null ? (
+                {user.loggedIn == null ? (
                     <button disabled>Connect wallet to place bet</button>
                 ) : (
                     <button>Confirm bet</button>
