@@ -19,7 +19,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         const transactionId = await fcl.mutate({
             cadence: `
             import FlowBetPalace from 0x036703c904a81123
-            import FlowToken from 0x05
+            import FlowToken from 0x7e60df042a9c0868
             transaction(amount: UFix64,uuid: String,optionIndex:UInt64) {
                 prepare(acct: AuthAccount) {
                     log("start")
@@ -59,7 +59,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                     let profile <- acct.load<@FlowBetPalace.UserSwitchboard>(from: FlowBetPalace.userSwitchBoardStoragePath) ?? panic("user have not started his account")
             
                     // get admin account that stores resourced
-                    let accountFlowBetPalace = getAccount(0x01)
+                    let accountFlowBetPalace = getAccount(0x036703c904a81123)
                     log("getting ref")
                     // get reference of the childBet resource
                     let childBetRef = accountFlowBetPalace.getCapability<&AnyResource{FlowBetPalace.ChildBetPublicInterface}>(PublicPath(identifier:"betchild".concat(uuid))!)
@@ -84,12 +84,12 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
             args: (arg, t) => [
                 arg(amount, t.UFix64),
                 arg(uuid, t.String),
-                arg(`${index}`, t.Int64),
+                arg(`${index}`, t.UInt64),
             ],
             payer: fcl.authz,
             proposer: fcl.authz,
             authorizations: [fcl.authz],
-            limit: 50
+            limit: 200
         })
         try {
             fcl.tx(transactionId).subscribe(res => console.log("res", res))
