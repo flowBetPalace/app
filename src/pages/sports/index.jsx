@@ -3,6 +3,7 @@ import * as fcl from "@onflow/fcl";
 import styleGlobal from '@/assets/styles/Global.module.css'
 import styleSports from '@/assets/styles/StyleSports.module.css'
 import Link from 'next/link'
+import { useRouter } from "next/router";
 
 import { useContext, useState, useEffect } from 'react'
 
@@ -10,12 +11,34 @@ import { DataContext } from '@/context/DataContext'
 
 export default function Sports() {
 
+    const router = useRouter();
+
     const [currentItem, setCurrentItem] = useState("soccer");
+    const [cachedContent, setCachedContent] = useState({});
     const { categories, setCategories } = useContext(DataContext);
     const [ bets, setBets ] = useState([]);
     const handleTabClick = (item) => {
         setCurrentItem(item);
     };
+
+    // const tabs = [
+    //     {id: 'soccer', label: '⚽ Soccer', content: 'Soccer content'},
+    //     {id: 'nfl', label: '🏉 Football', content: 'Football content'},
+    //     {id: 'basket', label: '🏀 Basketball', content: 'Basketball content'},
+    //     {id: 'mma', label: '🥊 MMA(UFC)', content: 'MMA content'},
+    //     {id: 'formula1', label: '🏎️ Formula 1', content: 'Formula 1 content'},
+    //     {id: 'motogp', label: '🏍️ Moto Gp', content: 'Moto Gp content'},
+    // ];
+    const tabs = [
+        { id: 'soccer', label: '⚽ Soccer', subcategory: 'soccer' },
+        { id: 'nfl', label: '🏉 Football', subcategory: 'nfl' },
+        { id: 'basket', label: '🏀 Basketball', subcategory: 'basket' },
+        { id: 'mma', label: '🥊 MMA(UFC)', subcategory: 'mma' },
+        { id: 'formula1', label: '🏎️ Formula 1', subcategory: 'formula1' },
+        { id: 'motogp', label: '🏍️ Moto Gp', subcategory: 'motogp' },
+      ];
+
+
     async function getBets() {
         const response = await fcl.query({
             cadence: `
@@ -48,8 +71,17 @@ export default function Sports() {
             ]
         },)
         setBets(response)
-
+        console.log(bets)
     }
+
+    const labeledData = bets.map((data) => ({
+        id: data[0],
+        match: data[1],
+        matchType: data[2],
+        category: data[3],
+        subcategory: data[4],
+    }));
+
     useEffect(() => {
         try{
             getBets()
@@ -60,6 +92,7 @@ export default function Sports() {
 
 
     }, [currentItem])
+
 
     return (
         <>
@@ -82,7 +115,46 @@ export default function Sports() {
                 {/* Tabbed navigation */}
                 <section className={styleSports.tabSection}>
                     <div className={styleGlobal.sectionContainer + ' container'}>
+                        {/* NEW ONE */}
                         <div className={styleSports.tabContainer}>
+                            {tabs.map((tab) => (
+                                <div
+                                    key={tab.id}
+                                    className={`${styleSports.tabItem} ${currentItem === tab.id ? styleSports.active : ''}`}
+                                    onClick={() => handleTabClick(tab.id)}
+                                >
+                                    {tab.label}
+                                </div>
+                            ))}
+                        </div>
+                        {/* <div className={styleSports.tabContent}>
+                            {tabs.map((tab) => {
+                                if (currentItem === tab.id) {
+                                return <div key={tab.id}>{tab.content}</div>;
+                                }
+                                return null;
+                            })}
+                        </div> */}
+                        <div className={styleSports.tabContent}>
+                            {labeledData.map((data) => {
+                                if (currentItem === data.subcategory) {
+                                return (
+                                    <div>
+                                        <div key={data.subcategory}>{data.subcategory}</div>
+                                        <div key={data.category}>{data.category}</div>
+                                        <div key={data.id}>{data.id}</div>
+                                        <div key={data.match}>{data.match}</div>
+                                        <div key={data.matchType}>{data.matchType}</div>
+                                    </div>
+                                );
+                                }
+                                return null;
+                            })}
+                        </div>
+                        <button onClick={() => console.log(labeledData)}>labeled data</button>
+
+                        {/* OLD ONE */}
+                        {/* <div className={styleSports.tabContainer}>
                             <div
                                 className={currentItem === "soccer" ? `${styleSports.tabItem} ${styleSports.active}` : styleSports.tabItem}
                                 onClick={() => handleTabClick("soccer")}
@@ -119,20 +191,37 @@ export default function Sports() {
                             >
                                 🏍️ Moto Gp
                             </div>
-                        </div>
+                        </div> */}
 
+                        {/* TESTING */}
                         {/* Render the content based on the selected tab */}
-                        {currentItem === "soccer" && <div className={styleSports.tabContent}>Soccer Content</div>}
-                        {currentItem === "basket" && <div className={styleSports.tabContent}>Basketball Content</div>}
-                        {currentItem === "mma" && <div className={styleSports.tabContent}>mma Content</div>}
-                        {currentItem === "box" && <div className={styleSports.tabContent}>Boxing Content</div>}
-                        {currentItem === "formula1" && <div className={styleSports.tabContent}>Formula 1 Content</div>}
-                        {currentItem === "motogp" && <div className={styleSports.tabContent}>Moto Gp Content</div>}
-                        {currentItem === "nfl" && <div className={styleSports.tabContent}>NFL American Football Content</div>}
+                        {/* {currentItem === "soccer" && <div className={styleSports.tabContent}> */}
+                            {/* <div>
+                                {bets.map((data, index) =>(
+                                    <div key={index}>
+                                        <p>{data[0]}</p>
+                                        <p>{data[1]}</p>
+                                        <p>{data[2]}</p>
+                                        <p>{data[3]}</p>
+                                        <p>{data[4]}</p>
+                                    </div>
 
+                                ))}
 
-
-
+                                <br />
+                                {labeledData.map((item, index) => (
+                                    <div key={index}>
+                                    <p>ID: {item.id}</p>
+                                    <p>Match: {item.match}</p>
+                                    <p>Match Type: {item.matchType}</p>
+                                    <p>Category: {item.category}</p>
+                                    <p>Subcategory: {item.subcategory}</p>
+                                    <br />
+                                    </div>
+                                ))}
+                                <button onClick={()=>console.log(labeledData)}>labeled</button>
+                            </div> */}
+                        {/* </div>} */}
                     </div>
                 </section>
 
