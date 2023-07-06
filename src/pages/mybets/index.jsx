@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react'
 import { DataContext } from '@/context/DataContext'
 import * as fcl from "@onflow/fcl";
+import MyOpenBet from '@/components/Widgets/MyOpenBet';
 
 export default function myBets() {
     const { user } = useContext(DataContext);
@@ -14,7 +15,7 @@ export default function myBets() {
         try {
             const response = await fcl.query({
                 cadence: `
-                import FlowBetPalace from 0x91f91fa7da326c16
+                import FlowBetPalace from 0x48214e37c07e015b
 
                 pub fun main(addr: Address) :[FlowBetPalace.UserBetStruct]{
                     // Get the accounts wich you want to get the bet
@@ -39,7 +40,7 @@ export default function myBets() {
             
             `,
                 args: (arg, t) => [
-                    arg("0x91f91fa7da326c16", t.Address)
+                    arg("0x48214e37c07e015b", t.Address)
                 ]
             },)
             console.log('res', response)
@@ -51,8 +52,18 @@ export default function myBets() {
         
     }
 
+    async function getOFinishedBets(){
+
+
+    }
+
+    const renderedOpenBets = openBets.map(el=> <MyOpenBet userBet={el} />)
+
     useEffect(() => {
         getBets()
     }, [user])
-    return <div>my bets</div>
+    return <div>
+        {renderedOpenBets}
+        
+        </div>
 }

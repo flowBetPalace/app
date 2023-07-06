@@ -30,7 +30,7 @@ export default function createBet() {
         const transactionId = await fcl.mutate({
             cadence: `
 
-                import FlowBetPalace from 0x91f91fa7da326c16
+                import FlowBetPalace from 0x48214e37c07e015b
 
                 transaction(betUuid: String,name:String,options: [String]) {
 
