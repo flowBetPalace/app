@@ -23,9 +23,36 @@ export default function Sports() {
 
     function formatDate (betData) {
         const endDate = betData.endDate;
+        
         console.log(endDate);
 
         const unixTimestamp = parseInt(endDate); // Convert the string to a number
+
+        const date = new Date(unixTimestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
+
+        // Use the Date object methods to extract the desired date components
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // Months are zero-based, so add 1
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        // Create a formatted date string
+        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        // Use the formattedDate in your app
+        console.log(formattedDate);
+
+        return formattedDate;
+
+    }
+    function formatStartDate (betData) {
+        const startDate = betData.startDate;
+        
+        console.log(startDate);
+
+        const unixTimestamp = parseInt(startDate); // Convert the string to a number
 
         const date = new Date(unixTimestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
 
@@ -194,6 +221,7 @@ export default function Sports() {
 
     const renderedChildBets = childBetsData.map(childBet=>
         <ChildBet 
+            key={childBet.uuid}
             uuid={childBet.uuid}
             matchTitle={betData.name}
             name={childBet.name}
@@ -215,8 +243,8 @@ export default function Sports() {
                     <div className={styleBet.betTitle}>
                         <p className={styleBet.name}>{betData.name}</p>
                         <p className={styleBet.status}>{betData.endDate} Aquí debemos de poner ya sea Live/TimeRemaining o Ended</p>
-                        <p>{formatDate(betData)}</p>
-                        <p>hola</p>
+                        <p>End date: {formatDate(betData)}</p>
+                        <p>Start date: {formatStartDate(betData)}</p>
                         {/* <p>{formattedDate}</p> */}
                     </div>
                     <button href="#" className={styleGlobal.btnTypeTwo}>

@@ -9,6 +9,8 @@ import { useContext, useState, useEffect } from 'react'
 
 import { DataContext } from '@/context/DataContext'
 
+import MatchComponent from '@/components/Widgets/MatchComponent';
+
 export default function Sports() {
 
     const router = useRouter();
@@ -112,10 +114,10 @@ export default function Sports() {
                         </div>
                     </div>
                 </header>
-                {/* Tabbed navigation */}
+                
                 <section className={styleSports.tabSection}>
                     <div className={styleGlobal.sectionContainer + ' container'}>
-                        {/* NEW ONE */}
+                        {/* Tabbed navigation */}
                         <div className={styleSports.tabContainer}>
                             {tabs.map((tab) => (
                                 <div
@@ -126,16 +128,24 @@ export default function Sports() {
                                     {tab.label}
                                 </div>
                             ))}
-                        </div>
-                        {/* <div className={styleSports.tabContent}>
-                            {tabs.map((tab) => {
-                                if (currentItem === tab.id) {
-                                return <div key={tab.id}>{tab.content}</div>;
-                                }
-                                return null;
-                            })}
-                        </div> */}
+                        </div>  
+                        {/* <button onClick={() => console.log(labeledData)}>labeled data</button> */}
+                        <br />
+                        
+                        {/* Tab content */}
                         <div className={styleSports.tabContent}>
+                            {labeledData.map((data) =>(
+                                <MatchComponent
+                                subcategory={data.subcategory}
+                                category={data.category}
+                                id={data.id}
+                                match={data.match}
+                                matchType={data.matchType}
+                                />
+                            ))}
+
+
+
                             {labeledData.map((data) => {
                                 if (currentItem === data.subcategory) {
                                 return (
@@ -151,7 +161,6 @@ export default function Sports() {
                                 return null;
                             })}
                         </div>
-                        <button onClick={() => console.log(labeledData)}>labeled data</button>
 
                         {/* OLD ONE */}
                         {/* <div className={styleSports.tabContainer}>
