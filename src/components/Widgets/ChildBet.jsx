@@ -142,7 +142,8 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                         {option}
                     </p>
                     <p className={styleBet.odds}>
-                        {(1+parseFloat(odds[optionIndex])).toFixed(2)}
+                        {/* {(1+parseFloat(odds[optionIndex])).toFixed(2)} */}
+                        {(parseFloat(odds[optionIndex])).toFixed(2)}
                     </p>
                 </div>
 
