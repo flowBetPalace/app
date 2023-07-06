@@ -18,18 +18,15 @@ export default function Sports() {
     const [ loadingBetData, setLoadingBetData] = useState(true);
     const [ childBetsData, setChildBetsData ] = useState([]);
     const [ loadingChildBets, setLoadingChildBets] = useState(true);
+    const timeDifference = getTimeDifference(formatStartDate(betData));
 
     const { BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable } = useContext(DataContext);
 
     function formatDate (betData) {
         const endDate = betData.endDate;
-        
         console.log(endDate);
-
         const unixTimestamp = parseInt(endDate); // Convert the string to a number
-
         const date = new Date(unixTimestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
-
         // Use the Date object methods to extract the desired date components
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // Months are zero-based, so add 1
@@ -37,25 +34,16 @@ export default function Sports() {
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
-
         // Create a formatted date string
         const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-
         // Use the formattedDate in your app
         console.log(formattedDate);
-
         return formattedDate;
-
     }
     function formatStartDate (betData) {
         const startDate = betData.startDate;
-        
-        console.log(startDate);
-
         const unixTimestamp = parseInt(startDate); // Convert the string to a number
-
         const date = new Date(unixTimestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
-
         // Use the Date object methods to extract the desired date components
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // Months are zero-based, so add 1
@@ -63,16 +51,43 @@ export default function Sports() {
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
-
         // Create a formatted date string
         const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-
         // Use the formattedDate in your app
         console.log(formattedDate);
-
         return formattedDate;
+    }
+
+    function parseFormattedDate(formattedDate) {
+        const [datePart, timePart] = formattedDate.split(" ");
+        const [day, month, year] = datePart.split("/");
+        const [hours, minutes, seconds] = timePart.split(":");
+        return new Date(year, month - 1, day, hours, minutes, seconds);
 
     }
+
+    function getTimeDifference(formattedDate) { 
+        console.log('hola')
+        console.log(formattedDate)
+        console.log('hola')
+        const eventDate = parseFormattedDate(formattedDate);
+        console.log(eventDate)
+        const currentDate = new Date();
+
+        const timeDifference = eventDate.getTime() - currentDate.getTime();
+
+        if (timeDifference < 0){
+            return "Event ended";
+        }
+
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+        return `Starting in ${days} days ${hours} hours ${minutes} minutes`;
+    }
+
+
 
 
 
@@ -243,6 +258,9 @@ export default function Sports() {
                     <div className={styleBet.betTitle}>
                         <p className={styleBet.name}>{betData.name}</p>
                         <p className={styleBet.status}>{betData.endDate} Aquí debemos de poner ya sea Live/TimeRemaining o Ended</p>
+                        <p>{timeDifference}</p>
+
+
                         <p>End date: {formatDate(betData)}</p>
                         <p>Start date: {formatStartDate(betData)}</p>
                         {/* <p>{formattedDate}</p> */}

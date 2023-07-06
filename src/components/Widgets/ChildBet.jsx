@@ -148,7 +148,6 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
 
             ))}
         </div>
-        <button onClick={() => console.log(selectedIndex)}>Butoncito</button>
         <br />
     </div>
 

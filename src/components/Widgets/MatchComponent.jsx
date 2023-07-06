@@ -14,18 +14,20 @@ export default function MatchComponent({ subcategory, category, id, match, match
                                 <p className={style.nameA}>
                                     {match}
                                 </p>
-                                <p className={style.nameAScore}>
-                                    {match}
-                                </p>
+                                <div className={style.scores}>
+                                    <p className={style.nameAScore}>?</p>
+                                    <p className={style.nameBScore}>?</p>
+                                </div>
                             </div>
-                            <div className={style.nameBContainer}>
+                            <p className={style.category}>{category}</p>
+                            {/* <div className={style.nameBContainer}>
                                 <p className={style.nameB}>
                                     {match}
                                 </p>
                                 <p className={style.nameBScore}>
                                     {match}
                                 </p>
-                            </div>
+                            </div> */}
                         </div>
                         <div className={style.statusAndInfo}>
                             <div className={style.status}>
@@ -52,7 +54,6 @@ export default function MatchComponent({ subcategory, category, id, match, match
                     
                 </div>
             </div>
-            <br />
         </div>
     )
 }
