@@ -40,7 +40,7 @@ export default function myBets() {
             
             `,
                 args: (arg, t) => [
-                    arg("0x48214e37c07e015b", t.Address)
+                    arg(user.addr, t.Address)
                 ]
             },)
             console.log('res', response)
