@@ -18,44 +18,31 @@ export default function Sports() {
     const [ loadingBetData, setLoadingBetData] = useState(true);
     const [ childBetsData, setChildBetsData ] = useState([]);
     const [ loadingChildBets, setLoadingChildBets] = useState(true);
-    const timeDifference = getTimeDifference(formatStartDate(betData));
+    const timeDifference = gettimeDifference(formatStartDate(betData), formatEndDate(betData));
+    // const timeDifference = gettimeDifference('6/7/2023 11:0:0', '6/7/2023 14:0:0');
 
     const { BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable } = useContext(DataContext);
 
-    function formatDate (betData) {
-        const endDate = betData.endDate;
-        console.log(endDate);
-        const unixTimestamp = parseInt(endDate); // Convert the string to a number
-        const date = new Date(unixTimestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
-        // Use the Date object methods to extract the desired date components
+    function formatDateTime(dateValue){
+        const unixTimestamp = parseInt(dateValue);
+        const date = new Date(unixTimestamp * 1000);
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // Months are zero-based, so add 1
         const day = date.getDate();
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
-        // Create a formatted date string
         const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-        // Use the formattedDate in your app
-        console.log(formattedDate);
+        //console.log(formattedDate);
         return formattedDate;
     }
-    function formatStartDate (betData) {
+    function formatEndDate(betData) {
+        const endDate = betData.endDate;
+        return formatDateTime(endDate);
+    }
+    function formatStartDate(betData) {
         const startDate = betData.startDate;
-        const unixTimestamp = parseInt(startDate); // Convert the string to a number
-        const date = new Date(unixTimestamp * 1000); // Multiply by 1000 to convert seconds to milliseconds
-        // Use the Date object methods to extract the desired date components
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1; // Months are zero-based, so add 1
-        const day = date.getDate();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        const seconds = date.getSeconds();
-        // Create a formatted date string
-        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-        // Use the formattedDate in your app
-        console.log(formattedDate);
-        return formattedDate;
+        return formatDateTime(startDate);
     }
 
     function parseFormattedDate(formattedDate) {
@@ -63,23 +50,28 @@ export default function Sports() {
         const [day, month, year] = datePart.split("/");
         const [hours, minutes, seconds] = timePart.split(":");
         return new Date(year, month - 1, day, hours, minutes, seconds);
-
     }
 
-    function getTimeDifference(formattedDate) { 
-        console.log('hola')
-        console.log(formattedDate)
-        console.log('hola')
-        const eventDate = parseFormattedDate(formattedDate);
-        console.log(eventDate)
+    
+
+    function gettimeDifference(startDatee, endDatee) {
+        const startDate = parseFormattedDate(startDatee);
+        const endDate = parseFormattedDate(endDatee);
         const currentDate = new Date();
 
-        const timeDifference = eventDate.getTime() - currentDate.getTime();
-
-        if (timeDifference < 0){
+        if (currentDate > endDate ) {
             return "Event ended";
         }
+        else if (currentDate >= startDate && currentDate <= endDate) {
+            const timeDifference = endDate - currentDate;
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
+            return `Event is live. Remaining time: ${days} days ${hours} hours ${minutes} minutes`;
+        }
+
+        const timeDifference = startDate - currentDate;
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
@@ -257,17 +249,13 @@ export default function Sports() {
                 <div className='d-flex justify-content-between'>
                     <div className={styleBet.betTitle}>
                         <p className={styleBet.name}>{betData.name}</p>
-                        <p className={styleBet.status}>{betData.endDate} Aquí debemos de poner ya sea Live/TimeRemaining o Ended</p>
-                        <p>{timeDifference}</p>
-
-
-                        <p>End date: {formatDate(betData)}</p>
-                        <p>Start date: {formatStartDate(betData)}</p>
-                        {/* <p>{formattedDate}</p> */}
+                        {/* <p>End date: {formatEndDate(betData)}</p>
+                        <p>Start date: {formatStartDate(betData)}</p> */}
+                        <p className={styleBet.status}>{timeDifference}</p>
                     </div>
-                    <button href="#" className={styleGlobal.btnTypeTwo}>
+                    {/* <button href="#" className={styleGlobal.btnTypeTwo}>
                         Claim reward
-                    </button>
+                    </button> */}
                 </div>
                 <div>
                     {/* {childBetsData[0].name} */}
