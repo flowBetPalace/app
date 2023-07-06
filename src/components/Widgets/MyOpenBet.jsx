@@ -1,10 +1,10 @@
 
-export default function MyOpenBet ({userBet,endDate}){
-
+export default function MyOpenBet ({userBet}){
     return <div>
+        bet name:{userBet.betName}
         name:{userBet.childBetName} 
         choosenOption:{userBet.choosenOptionName} 
         amount:{userBet.amount} 
-        {/* </div>{userBet.stopAcceptingBets<button>claim reward</button> : <div>in progress</div>} */}
+        {userBet.endDate > Date.now() ? <button>claim reward</button> : <div>in progress</div>}
     </div>
 }
