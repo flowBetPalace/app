@@ -6,6 +6,8 @@ import styleMyBet from '@/assets/styles/MyBet.module.css'
 
 
 export default function MyOpenBet ({userBet}){
+    const [message,SetMessage] = useState('');
+
     const onClaimReward = async () => {
         const transactionId = await fcl.mutate({
             cadence: `
@@ -57,7 +59,8 @@ export default function MyOpenBet ({userBet}){
             fcl.tx(transactionId).subscribe(res => console.log("res",res))
 
         } catch (err) {
-            console.log("err", err)
+            console.log("winners have not seted yet, please try later")
+            SetMessage("winners have not seted yet, please try later")
         }
     }
 
@@ -68,6 +71,7 @@ export default function MyOpenBet ({userBet}){
                 name:{userBet.childBetName} 
                 choosenOption:{userBet.choosenOptionName} 
                 amount:{userBet.amount} 
+                error message: {message}
                 {parseInt(userBet.endDate) < Math.floor(Date.now() / 1000) ? <button onClick={onClaimReward}>claim reward</button> : <div>in progress</div>}
             </div>
         </div>
