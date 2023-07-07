@@ -7,9 +7,12 @@ import Link from 'next/link'
 import styles from '@/assets/styles/Navbar.module.css'
 
 import * as fcl from "@onflow/fcl";
+import { FlowApp, getAccountBalance } from '@onflow/fcl';
 
 export default function Navbar() {
 
+    // const [balance, setBalance] = useState(null);
+    
     const formatAddress = (address) => {
         if (address?.length === 18) {
           return address.substring(0, 3) + "..." + address.substring(16);
@@ -19,8 +22,12 @@ export default function Navbar() {
     }
 
     const { user, setUser } = useContext(DataContext);
+    const { balance, setBalance } = useContext(DataContext);
+    
 
     useEffect(() => fcl.currentUser.subscribe(setUser), [])
+    console.log(user)
+    console.log('hola')
 
     const AuthedState = () => {
         return (
@@ -58,6 +65,51 @@ export default function Navbar() {
           </div>
         )
       }
+
+    //   
+
+      
+    //   const getFlowBalancee = async (address) => {
+    //     if(address == null){
+    //         return(
+    //             'Try again'
+    //         )
+    //     } else {
+    //         return fcl.account(address).then(d => {
+    //                 console.log(d.balance)
+    //        })
+    //     }
+    //   }
+
+    const getFlowBalance = async (address) => {
+        if (address == null) {
+          return 'Try again';
+        } else {
+          const account = await fcl.account(address);
+          return account.balance;
+        }
+      };
+
+      useEffect(() => {
+        const fetchBalance = async () => {
+            const bal = await getFlowBalance(user?.addr);
+            console.log("balance: ", bal);
+            setBalance((bal) => {
+                console.log(balance);
+                const formattedBalance = (parseInt(balance) / 100000000).toFixed(2);
+                console.log(formattedBalance);
+                return formattedBalance;
+            });
+        };
+        fetchBalance();
+      }, [])
+
+    //   Three decimals
+    //   const formattedBalance = balance ? (parseInt(balance) / 1000000000).toLocaleString() : '';
+    // No decimals
+    // const formattedBalance = balance ? (parseInt(balance) / 100000000).toLocaleString(undefined, { maximumFractionDigits: 0 }) : '';
+    // Two decimals
+    // const formattedBalance = balance ? (parseInt(balance) / 100000000).toFixed(2) : '';
 
 
 
@@ -99,6 +151,14 @@ export default function Navbar() {
                                 Log in
                             </button>
                         </div> */}
+                        <button onClick={()=>(getFlowBalance(user?.addr))}>Fetch flow balance</button>
+                        
+                        {(user?.addr === null) ? (
+                            <></>
+                        ):(
+                            <div>{balance}</div>
+                        )
+                        }
                     </div>
                 </div>
             </div>

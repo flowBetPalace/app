@@ -9,6 +9,9 @@ export const DataContext = createContext(null);
 export const DataProvider = ({children}) => {
     // const [userWallet, setUserWallet] = useState(null);
     const [user, setUser] = useState({loggedIn: null})
+    const [balance, setBalance] = useState(null);
+
+    
     const [categories, setCategories] = useState(["soccer", "nfl", "basketball", "mma", "formula1", "motogp"]);
 
     const [PopUpActive, setPopUpActive] = useState(false);
@@ -31,7 +34,7 @@ export const DataProvider = ({children}) => {
     // }, []);
 
     return (
-        <DataContext.Provider value={{ user, setUser, categories, setCategories, PopUpActive, setPopUpActive, PopUpStatus, setPopUpStatus, PopUpMessage, setPopUpMessage, PopUpCloseable, setPopUpCloseable, BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable}}>
+        <DataContext.Provider value={{ user, setUser, balance, setBalance, categories, setCategories, PopUpActive, setPopUpActive, PopUpStatus, setPopUpStatus, PopUpMessage, setPopUpMessage, PopUpCloseable, setPopUpCloseable, BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable}}>
             {children}
         </DataContext.Provider>
     );
