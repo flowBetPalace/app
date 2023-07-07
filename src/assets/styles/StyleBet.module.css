@@ -1,7 +1,9 @@
 .betSection { padding: 2rem 0;}
-.betTitle { display: flex; flex-direction: column;}
+.betTitle { display: flex; flex-direction: column; margin-bottom: 2rem; gap: 1rem;}
 .name { font-size: var(--font-size-l); }
-.status { color: var(--sec-text-color);}
+.status { color: var(--sec-text-color); font-size: var(--font-size);}
+.statusLive { background-color: var(--red-bg); display: inline-flex; align-items: center; border-radius: 5px; padding: .1rem .6rem; gap: .4rem;}
+.statusLive .statusLiveSquare { margin-bottom: 0; font-size: var(--font-size); color: var(--text-color);}
 
 .childBet { border: 1px solid var(--stroke-color); background-color: var(--ter-color); border-radius: 10px; gap: 1rem; margin-bottom: 1.5rem; padding: .8rem 1.2rem;}
 .childName { font-size: var(--font-size); margin-bottom: .5rem;}

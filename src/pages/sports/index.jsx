@@ -147,20 +147,7 @@ export default function Sports() {
 
 
 
-                            {labeledData.map((data) => {
-                                if (currentItem === data.subcategory) {
-                                return (
-                                    <div>
-                                        <div key={data.subcategory}>{data.subcategory}</div>
-                                        <div key={data.category}>{data.category}</div>
-                                        <div key={data.id}>{data.id}</div>
-                                        <div key={data.match}>{data.match}</div>
-                                        <div key={data.matchType}>{data.matchType}</div>
-                                    </div>
-                                );
-                                }
-                                return null;
-                            })}
+                            
                         </div>
 
                         {/* OLD ONE */}

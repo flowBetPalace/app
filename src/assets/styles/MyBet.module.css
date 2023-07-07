@@ -1,0 +1,2 @@
+.mybet { border: 1px solid var(--stroke-color); background-color: var(--ter-color); border-radius: 10px; padding: 1rem .4rem; margin-bottom: 1.5rem;}
+.mybetname { font-size: var(--font-size);}

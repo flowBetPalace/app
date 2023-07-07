@@ -24,7 +24,7 @@ export default function Sports() {
     const [ childBetsData, setChildBetsData ] = useState([]);
     const [ loadingChildBets, setLoadingChildBets] = useState(true);
     const timeDifference = gettimeDifference(formatStartDate(betData), formatEndDate(betData));
-    // const timeDifference = gettimeDifference('6/7/2023 11:0:0', '6/7/2023 14:0:0');
+    // const timeDifference = gettimeDifference('6/7/2023 11:0:0', '7/7/2023 14:0:0');
 
     const { setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
 
@@ -73,7 +73,23 @@ export default function Sports() {
             const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
-            return `Event is live. Remaining time: ${days} days ${hours} hours ${minutes} minutes`;
+            return (
+                <div className='d-flex gap-3'>
+                    <div className={styleBet.statusLive}>
+                        <Image 
+                            src="/icons/circle.svg"
+                            alt="Live icon"
+                            width={8}
+                            height={8}
+                        />
+                        <p className={styleBet.statusLiveSquare}> 
+                            Live
+                        </p>
+                    </div>
+                    <p>Remaining time: {days} days {hours} hours {minutes} minutes</p>
+                </div>
+                
+                );
         }
 
         const timeDifference = startDate - currentDate;
@@ -255,9 +271,9 @@ export default function Sports() {
                 <div className='d-flex justify-content-between'>
                     <div className={styleBet.betTitle}>
                         <p className={styleBet.name}>{betData.name}</p>
+                        <p className={styleBet.status}>{timeDifference}</p>
                         {/* <p>End date: {formatEndDate(betData)}</p>
                         <p>Start date: {formatStartDate(betData)}</p> */}
-                        <p className={styleBet.status}>{timeDifference}</p>
                     </div>
                     {/* <button href="#" className={styleGlobal.btnTypeTwo}>
                         Claim reward

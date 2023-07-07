@@ -3,6 +3,8 @@ import { DataContext } from '@/context/DataContext'
 import * as fcl from "@onflow/fcl";
 import MyOpenBet from '@/components/Widgets/MyOpenBet';
 
+import styleMyBets from '@/assets/styles/MyBets.module.css';
+
 export default function myBets() {
     const { user } = useContext(DataContext);
     const [openBets, setOpenBets] = useState([]);
@@ -62,8 +64,12 @@ export default function myBets() {
     useEffect(() => {
         getBets()
     }, [user])
-    return <div>
-        {renderedOpenBets}
-        
+    return (
+    <div className={styleMyBets.mybets}>
+        <div className="container">
+            <h1>My bets</h1>
+            {renderedOpenBets}
         </div>
+    </div>
+    )
 }
