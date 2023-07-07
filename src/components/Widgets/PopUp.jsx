@@ -51,7 +51,7 @@ export default function PopUp() {
       />
     );
   }
-  if (!ModalActive) {
+  if (!PopUpActive) {
     return null;
   }
   return (
