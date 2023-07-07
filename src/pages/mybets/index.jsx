@@ -4,6 +4,7 @@ import * as fcl from "@onflow/fcl";
 import MyOpenBet from '@/components/Widgets/MyOpenBet';
 
 import styleMyBets from '@/assets/styles/MyBets.module.css';
+import MyFinishedBet from '@/components/Widgets/MyFinishedBet';
 
 export default function myBets() {
     const { user } = useContext(DataContext);
@@ -89,7 +90,7 @@ export default function myBets() {
     }
 
     const renderedOpenBets = openBets.map(el=> <MyOpenBet userBet={el} />)
-
+    const renderFinishedBets = finishedBets.map(el=> <MyFinishedBet userBet={el} />)
     useEffect(() => {
         getBets()
         getFinishedBets()
@@ -99,6 +100,8 @@ export default function myBets() {
         <div className="container">
             <h1>My bets</h1>
             {renderedOpenBets}
+            <h1>My finished bets</h1>
+            {renderFinishedBets}
         </div>
     </div>
     )
