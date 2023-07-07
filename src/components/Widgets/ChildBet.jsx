@@ -5,11 +5,15 @@ import Image from 'next/image'
 import * as fcl from "@onflow/fcl";
 
 export default function ChildBet({ uuid, matchTitle, name, options, winnerOptionsIndex, odds, startDate, stopAcceptingBetsDate, endDate }) {
-    const { user, BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable } = useContext(DataContext);
+    const { user, setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
 
     const onSubmitBuyBet = async (e,index) => {
-        console.log('----',index)
+        console.log('----',index);
         e.preventDefault();
+        setPopUpCloseable(false);
+        setPopUpStatus('loading');
+        setPopUpMessage('Loading...');
+        setPopUpActive(true);
         let amount = e.target.elements.amount.value
         // Check if amount is a whole number
         if (!amount.includes('.')) {
@@ -94,12 +98,56 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
             proposer: fcl.authz,
             authorizations: [fcl.authz],
             limit: 200
-        })
-        try {
-            fcl.tx(transactionId).subscribe(res => console.log("res", res))
+        });
+        const statusPopUp = (res) => {
+            console.log("res: ", res);
+            switch (res.status) {
+                case 0:
+                    // UNKNOWN	The transaction status is not known.
+                    setPopUpMessage('The transaction status is unknown.');
+                    break;
+                case 1:
+                    // PENDING	The transaction has been received by a collector but not yet finalized in a block.
+                    setPopUpMessage('Your transaction is being handled by a collector.');
+                    break;
+                case 2:
+                    // FINALIZED	The consensus nodes have finalized the block that the transaction is included in
+                    setPopUpMessage('Your transaction is almost finished being processed.');
+                    break;
+                case 3:
+                    // EXECUTED	The execution nodes have produced a result for the transaction
+                    setPopUpMessage('Your transaction is being processed.');
+                    break;
+                case 4:
+                    // SEALED	The verification nodes have verified the transaction (the block in which the transaction is) and the seal is included in the latest block
+                    setPopUpMessage('The transactions was successfull! Good luck!');
+                    setPopUpStatus('success');
+                    setPopUpCloseable(true);
 
+                    setBetModalActive(false);
+                    setBetModalMessage('');
+                    setBetModalCloseable(true);
+                    setBetModalStatus('');
+                    break;
+                case 5:
+                    // EXPIRED	The transaction was submitted past its expiration block height.
+                    setPopUpMessage('There was an error during the process.');
+                    setPopUpStatus('danger');
+                    setPopUpCloseable(true);
+                    break;
+                default:
+                    setPopUpMessage('Loading...');
+                    break;
+            }
+            return;
+        }
+        try {
+            fcl.tx(transactionId).subscribe(res => statusPopUp(res));
         } catch (err) {
-            console.log("err", err)
+            console.log("err: ", err);
+            setPopUpMessage('There was an error during the transaction. ', err);
+            setPopUpStatus('danger');
+            setPopUpCloseable(true);
         }
     }
 

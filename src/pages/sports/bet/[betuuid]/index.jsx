@@ -1,15 +1,20 @@
-import Head from 'next/head'
 import * as fcl from "@onflow/fcl";
+
+import { useContext, useState, useEffect } from 'react'
+import { useRouter } from "next/router";
+import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
+
+import { DataContext } from '@/context/DataContext'
+
+import PopUp from "@/components/Widgets/PopUp";
+import BetModal from '@/components/Widgets/BetModal';
+import ChildBet from '@/components/Widgets/ChildBet';
+
 import styleGlobal from '@/assets/styles/Global.module.css'
 import styleSports from '@/assets/styles/StyleSports.module.css'
 import styleBet from '@/assets/styles/StyleBet.module.css'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useContext, useState, useEffect } from 'react'
-import { DataContext } from '@/context/DataContext'
-import BetModal from '@/components/Widgets/BetModal';
-import { useRouter } from "next/router";
-import ChildBet from '@/components/Widgets/ChildBet';
 
 export default function Sports() {
     const router = useRouter();
@@ -21,7 +26,7 @@ export default function Sports() {
     const timeDifference = gettimeDifference(formatStartDate(betData), formatEndDate(betData));
     // const timeDifference = gettimeDifference('6/7/2023 11:0:0', '6/7/2023 14:0:0');
 
-    const { BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable } = useContext(DataContext);
+    const { setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
 
     function formatDateTime(dateValue){
         const unixTimestamp = parseInt(dateValue);
@@ -243,6 +248,7 @@ export default function Sports() {
 
     return <>
         <BetModal />
+        <PopUp />
         <div className={styleBet.betSection}>
             <div className="container">
                 {/* .category, .description, .endDate, imageLink, name, startDate, stopAcceptingBetsDate */}
