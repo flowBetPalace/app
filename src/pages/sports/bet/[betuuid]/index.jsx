@@ -23,7 +23,6 @@ export default function Sports() {
     const [ loadingBetData, setLoadingBetData] = useState(true);
     const [ childBetsData, setChildBetsData ] = useState([]);
     const [ loadingChildBets, setLoadingChildBets] = useState(true);
-    const timeDifference = gettimeDifference(formatStartDate(betData), formatEndDate(betData));
     const timeDifference = gettimeDifference(formatDateTime(betData.startDate), formatDateTime(betData.endDate));
     // const timeDifference = gettimeDifference('6/7/2023 11:0:0', '7/7/2023 14:0:0');
     const [ acceptBets, setAcceptBets ] = useState(false);
