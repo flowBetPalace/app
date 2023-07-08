@@ -4,7 +4,7 @@ import "../../flow/config";
 import { useState, useEffect, useContext } from "react";
 import * as fcl from "@onflow/fcl";
 
-import Match from '@/components/Widgets/Match'
+import Match from '@/components/Widgets/MatchComponent'
 import NBA from '@/components/Protocols/NBA'
 
 import styleHome from '@/assets/styles/Home.module.css'

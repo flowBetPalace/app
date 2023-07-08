@@ -21,9 +21,7 @@ export default function Navbar() {
         }
     }
 
-    const { user, setUser } = useContext(DataContext);
-    const { balance, setBalance } = useContext(DataContext);
-    
+    const { user, setUser, balance, setBalance } = useContext(DataContext);
 
     useEffect(() => fcl.currentUser.subscribe(setUser), [])
     console.log(user)
@@ -82,27 +80,17 @@ export default function Navbar() {
     //   }
 
     const getFlowBalance = async (address) => {
-        if (address == null) {
-          return 'Try again';
-        } else {
-          const account = await fcl.account(address);
-          return account.balance;
+        if (address) {
+            const account = await fcl.account(address);
+            setBalance((parseInt(account.balance) / 100000000).toFixed(2));
+            return account.balance;
         }
+        return 'Try again';
       };
-
-      useEffect(() => {
-        const fetchBalance = async () => {
-            const bal = await getFlowBalance(user?.addr);
-            console.log("balance: ", bal);
-            setBalance((bal) => {
-                console.log(balance);
-                const formattedBalance = (parseInt(balance) / 100000000).toFixed(2);
-                console.log(formattedBalance);
-                return formattedBalance;
-            });
-        };
-        fetchBalance();
-      }, [])
+    
+    useEffect(() => {
+        getFlowBalance(user?.addr);
+      }, [user])
 
     //   Three decimals
     //   const formattedBalance = balance ? (parseInt(balance) / 1000000000).toLocaleString() : '';
