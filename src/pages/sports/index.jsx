@@ -136,7 +136,7 @@ export default function Sports() {
                         <div className={styleSports.tabContent}>
                             {labeledData.map((data) =>(
                                 <MatchComponent
-                                
+                                key={data.id}
                                 subcategory={data.subcategory}
                                 category={data.category}
                                 id={data.id}
