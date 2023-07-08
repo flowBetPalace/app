@@ -4,7 +4,7 @@ import styleBet from '@/assets/styles/StyleBet.module.css'
 import Image from 'next/image'
 import * as fcl from "@onflow/fcl";
 
-export default function ChildBet({ uuid, matchTitle, name, options, winnerOptionsIndex, odds, startDate, stopAcceptingBetsDate, endDate }) {
+export default function ChildBet({ uuid, matchTitle, name, options, winnerOptionsIndex, odds, startDate, stopAcceptingBetsDate, endDate, acceptBets }) {
     const { user, setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
 
     const onSubmitBuyBet = async (e,index) => {
@@ -181,11 +181,12 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         setBetModalActive(true);
     }
 
-    return <div className={styleBet.childBet}>
+    return (
+    <div className={styleBet.childBet}>
         <p className={styleBet.childName}>{name}</p>
         <div className={styleBet.childContainer}>
             {options.map((option, optionIndex) => (
-                <div key={optionIndex} data-key={optionIndex} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle)} >
+                <button key={optionIndex} data-key={optionIndex} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle)} disabled={!acceptBets} >
                     <p className={styleBet.option}>
                         {option}
                     </p>
@@ -193,11 +194,12 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                         {/* {(1+parseFloat(odds[optionIndex])).toFixed(2)} */}
                         {(parseFloat(odds[optionIndex])).toFixed(2)}
                     </p>
-                </div>
+                </button>
 
             ))}
         </div>
         <br />
     </div>
+    )
 
 }

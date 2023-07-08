@@ -24,9 +24,22 @@ export default function Sports() {
     const [ childBetsData, setChildBetsData ] = useState([]);
     const [ loadingChildBets, setLoadingChildBets] = useState(true);
     const timeDifference = gettimeDifference(formatStartDate(betData), formatEndDate(betData));
+    const timeDifference = gettimeDifference(formatDateTime(betData.startDate), formatDateTime(betData.endDate));
     // const timeDifference = gettimeDifference('6/7/2023 11:0:0', '7/7/2023 14:0:0');
+    const [ acceptBets, setAcceptBets ] = useState(false);
+    
 
     const { setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
+
+    function getAcceptBets(rawStartDate, rawEndDate) {
+        const startDate = parseFormattedDate(rawStartDate);
+        const endDate = parseFormattedDate(rawEndDate);
+        const currentDate = new Date();
+        if ((currentDate > endDate) || (currentDate >= startDate && currentDate <= endDate)) {
+            return false;
+        }
+        return true;
+    }
 
     function formatDateTime(dateValue){
         const unixTimestamp = parseInt(dateValue);
@@ -96,6 +109,7 @@ export default function Sports() {
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
 
         return `Starting in ${days} days ${hours} hours ${minutes} minutes`;
     }
@@ -187,6 +201,9 @@ export default function Sports() {
         console.log('bets response',response)
         console.log(BetUuid)
         setBetData(response)
+        console.log(response)
+        setAcceptBets(getAcceptBets(formatStartDate(response), formatEndDate(response)))
+        // setAcceptBets(getAcceptBets('6/7/2023 11:0:0', '7/7/2023 14:0:0'))
         setLoadingBetData(false)
 
     }
@@ -237,8 +254,8 @@ export default function Sports() {
     }
     useEffect(() => {
         try{
-            getBetData()
-            getChildBets()
+            getBetData();
+            getChildBets();
         }catch(err){
             console.log('err',err)
         }
@@ -246,9 +263,10 @@ export default function Sports() {
 
 
     },[BetUuid])
+    
 
     const renderedChildBets = childBetsData.map(childBet=>
-        <ChildBet 
+        <ChildBet
             key={childBet.uuid}
             uuid={childBet.uuid}
             matchTitle={betData.name}
@@ -259,6 +277,7 @@ export default function Sports() {
             startDate={childBet.startDate}
             stopAcceptingBetsDate={childBet.stopAcceptingBetsDate}
             endDate={childBet.endDate}
+            acceptBets={acceptBets}
         />
     )
 
@@ -271,7 +290,7 @@ export default function Sports() {
                 <div className='d-flex justify-content-between'>
                     <div className={styleBet.betTitle}>
                         <p className={styleBet.name}>{betData.name}</p>
-                        <p className={styleBet.status}>{timeDifference}</p>
+                        <div className={styleBet.status}>{timeDifference}</div>
                         {/* <p>End date: {formatEndDate(betData)}</p>
                         <p>Start date: {formatStartDate(betData)}</p> */}
                     </div>
