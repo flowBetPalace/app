@@ -90,7 +90,7 @@ export default function MyOpenBet ({userBet}){
                 <div className="d-flex gap-3">
                     {parseInt(userBet.endDate) < Math.floor(Date.now() / 1000) ?
                     <button onClick={onClaimReward} className={styleGlobal.btnTypeTwo}>claim reward</button> :
-                    <div className={styleGlobal.btnTypeTwoInactive}>in progress</div>
+                    <div className={styleGlobal.btnTypeTwoInactive}>In progress</div>
                 }
                 <Link href={'/sports/bet/' + userBet.betUuid} className={styleGlobal.btnTypeFive}>View match</Link>
 
