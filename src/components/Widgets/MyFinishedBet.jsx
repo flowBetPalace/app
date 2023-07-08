@@ -5,7 +5,11 @@ export default function MyFinishedBet ({userBet}){
     return (
         <div className={styleMyBet.mybet}>
             <div className="container">
-                <p className={styleMyBet.mybetname}>{userBet.betName}</p>
+                <div>
+                    <p className={styleMyBet.mybetname}>{userBet.betName}</p>
+                    <div className={styleMyBet.vl}></div>
+                </div>
+                
                 name:{userBet.childBetName} 
                 choosenOption:{userBet.choosenOptionName} 
                 amount:{userBet.amount} 

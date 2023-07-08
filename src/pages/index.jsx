@@ -129,7 +129,7 @@ export default function Home() {
             <HomeCard />
             <div className={styleHome.subtitleContainer}>
               <p className={styleGlobal.fontL}>🔥 Hot matches</p>
-              <Link href="#" className={styleGlobal.btnTypeTwo}>
+              <Link href="/sports" className={styleGlobal.btnTypeTwo}>
                 View all
               </Link>
             </div>

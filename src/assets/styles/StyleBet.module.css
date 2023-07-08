@@ -1,3 +1,5 @@
+
+
 .betSection { padding: 2rem 0;}
 .betTitle { display: flex; flex-direction: column; margin-bottom: 2rem; gap: 1rem;}
 .name { font-size: var(--font-size-l); }
@@ -13,3 +15,4 @@
 .childSelection[disabled] { background-color: red!important; }
 .odds { color: var(--pri-color); font-size: var(--font-size-xs);}
 .option { font-size: var(--font-size-s); color: var(--text-color);} 
+

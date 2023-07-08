@@ -89,8 +89,8 @@ export default function myBets() {
 
     }
 
-    const renderedOpenBets = openBets.map(el=> <MyOpenBet userBet={el} />)
-    const renderFinishedBets = finishedBets.map(el=> <MyFinishedBet userBet={el} />)
+    const renderedOpenBets = openBets.map((el, index)=> <MyOpenBet key={index} userBet={el} />)
+    const renderFinishedBets = finishedBets.map((el, index)=> <MyFinishedBet key={index} userBet={el} />)
     useEffect(() => {
         getBets()
         getFinishedBets()

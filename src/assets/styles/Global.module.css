@@ -6,13 +6,22 @@
 
 /* --------- BUTTONS -------*/
 /* Green Button */
-.btnTypeOne { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content }
+.btnTypeOne { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content; cursor: pointer }
 .btnTypeOne:hover { background-color: var(--pri-color-hover); }
 
 /*  White Button */
-.btnTypeTwo { background-color: var(--white); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content }
+.btnTypeTwo { background-color: var(--white); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content; cursor: pointer; }
 .btnTypeTwo:hover { background-color: var(--white-hover);}
+.btnTypeTwoInactive { background-color: var(--stroke-color); color: var(--ter-color); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content; }
 
 /* Tabbed Navigation Button */
 .btnTypeThree.active { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; }
+
+/* Informational Button */
+.btnTypeFour { background-color: var(--sec-color); color: var(--white); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size-s); font-weight: 400; transition: 0.5s; margin-bottom: .2rem; margin-top: .2rem; text-decoration: none; display: inline-block; height: fit-content }
+.btnTypeFourG { background-color: var(--sec-color); color: var(--pri-color); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size-s); font-weight: 400; transition: 0.5s; margin-bottom: .2rem; margin-top: .2rem; text-decoration: none; display: inline-block; height: fit-content }
+
+/* Transparent button */
+.btnTypeFive { background-color: transparent; color: var(--white); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content; cursor: pointer }
+.btnTypeFive:hover { background-color: var(--sec-color);}
 

@@ -1,12 +1,20 @@
 import { useState } from "react"
 import * as fcl from "@onflow/fcl";
 
+import Link from "next/link";
+
 import styleMyBet from '@/assets/styles/MyBet.module.css'
+import styleGlobal from '@/assets/styles/Global.module.css'
 
 
 
 export default function MyOpenBet ({userBet}){
     const [message,SetMessage] = useState('');
+
+    const formatAmount = (amount) => {
+        var res = parseFloat(amount).toFixed(2);
+        return res
+    }
 
     const onClaimReward = async () => {
         const transactionId = await fcl.mutate({
@@ -66,13 +74,28 @@ export default function MyOpenBet ({userBet}){
 
     return (
         <div className={styleMyBet.mybet}>
-            <div className="container">
-                <p className={styleMyBet.mybetname}>{userBet.betName}</p>
-                name:{userBet.childBetName} 
-                choosenOption:{userBet.choosenOptionName} 
-                amount:{userBet.amount} 
-                error message: {message}
-                {parseInt(userBet.endDate) < Math.floor(Date.now() / 1000) ? <button onClick={onClaimReward}>claim reward</button> : <div>in progress</div>}
+            <div className="container d-flex justify-content-between">
+                <div className="d-flex left-section gap-4 align-items-center">
+                    <div className="d-flex gap-4 align-items-center">
+                        <p className={styleMyBet.mybetname}>{userBet.betName}</p>
+                        <div className={styleMyBet.vl}></div>
+                    </div>
+                    <div className="d-flex align-items-center gap-3">
+                        <p className={styleMyBet.childbetname}>{userBet.childBetName}</p>
+                        <p className={styleGlobal.btnTypeFour}>{userBet.choosenOptionName}</p>
+                        <p className={styleGlobal.btnTypeFourG}>{formatAmount(userBet.amount)} FLOW</p>
+                        {/* <p>error message: {message}</p> */}
+                    </div>
+                </div>
+                <div className="d-flex gap-3">
+                    {parseInt(userBet.endDate) < Math.floor(Date.now() / 1000) ?
+                    <button onClick={onClaimReward} className={styleGlobal.btnTypeTwo}>claim reward</button> :
+                    <div className={styleGlobal.btnTypeTwoInactive}>in progress</div>
+                }
+                <Link href={'/sports/bet/' + userBet.betUuid} className={styleGlobal.btnTypeFive}>View match</Link>
+
+                </div>
+                
             </div>
         </div>
     )
