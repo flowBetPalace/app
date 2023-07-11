@@ -11,6 +11,7 @@ import { DataContext } from '@/context/DataContext'
 import PopUp from "@/components/Widgets/PopUp";
 import BetModal from '@/components/Widgets/BetModal';
 import ChildBet from '@/components/Widgets/ChildBet';
+import Timer from "@/components/Widgets/Timer";
 
 import styleGlobal from '@/assets/styles/Global.module.css'
 import styleSports from '@/assets/styles/StyleSports.module.css'
@@ -262,6 +263,16 @@ export default function Sports() {
 
 
     },[BetUuid])
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setAcceptBets(getAcceptBets(formatStartDate(betData), formatEndDate(betData)))
+        }, 1000);
+    
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
     
 
     const renderedChildBets = childBetsData.map(childBet=>
@@ -293,6 +304,14 @@ export default function Sports() {
                         <div className='d-flex justify-content-between'>
                             <div className={styleBet.betTitle}>
                                 <p className={styleBet.name}>{betData.name}</p>
+                                <Timer
+                                    rawStartDate={formatDateTime(betData.startDate)}
+                                    rawEndDate={formatDateTime(betData.endDate)}
+                                />
+                                {/* <Timer
+                                    rawStartDate={'11/7/2023 14:23:0'}
+                                    rawEndDate={'11/7/2023 14:31:0'}
+                                /> */}
                                 <div className={styleBet.status}>{timeDifference}</div>
                                 {/* <p>End date: {formatEndDate(betData)}</p>
                                 <p>Start date: {formatStartDate(betData)}</p> */}
