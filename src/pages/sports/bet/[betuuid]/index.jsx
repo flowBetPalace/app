@@ -312,7 +312,7 @@ export default function Sports() {
                                     rawStartDate={'11/7/2023 14:23:0'}
                                     rawEndDate={'11/7/2023 14:31:0'}
                                 /> */}
-                                <div className={styleBet.status}>{timeDifference}</div>
+                                {/* <div className={styleBet.status}>{timeDifference}</div> */}
                                 {/* <p>End date: {formatEndDate(betData)}</p>
                                 <p>Start date: {formatStartDate(betData)}</p> */}
                             </div>

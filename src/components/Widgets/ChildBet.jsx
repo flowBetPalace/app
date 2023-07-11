@@ -6,6 +6,7 @@ import * as fcl from "@onflow/fcl";
 
 export default function ChildBet({ uuid, matchTitle, name, options, winnerOptionsIndex, odds, startDate, stopAcceptingBetsDate, endDate, acceptBets }) {
     const { user, balance, setBalance, setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
+    console.log("winner: ", winnerOptionsIndex);
 
     const getFlowBalance = async (address) => {
         if (address) {
@@ -197,7 +198,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         <p className={styleBet.childName}>{name}</p>
         <div className={styleBet.childContainer}>
             {options.map((option, optionIndex) => (
-                <button key={optionIndex} data-key={optionIndex} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle)} disabled={!acceptBets} >
+                <button key={optionIndex} data-key={optionIndex} data-winner={optionIndex === winnerOptionsIndex[0] ? 'true' : 'false'} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle)} disabled={!acceptBets} >
                     <p className={styleBet.option}>
                         {option}
                     </p>
