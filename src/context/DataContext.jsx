@@ -11,7 +11,6 @@ export const DataProvider = ({children}) => {
     const [user, setUser] = useState({loggedIn: null})
     const [balance, setBalance] = useState(null);
 
-    
     const [categories, setCategories] = useState(["soccer", "nfl", "basketball", "mma", "formula1", "motogp"]);
 
     const [PopUpActive, setPopUpActive] = useState(false);
@@ -24,6 +23,15 @@ export const DataProvider = ({children}) => {
     const [BetModalMessage, setBetModalMessage] = useState('message');
     const [BetModalCloseable, setBetModalCloseable] = useState(true);
 
+    const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+
+    const toggleOpenNavbar = () => {
+        setIsNavbarOpen(!isNavbarOpen);
+    }
+    const closeNavbar = () => {
+        setIsNavbarOpen(false);
+    }
+
     // useEffect(() => {
     //     // Connect with Blocto using FCL
     //     fcl.authenticate().then((user) => {
@@ -34,7 +42,7 @@ export const DataProvider = ({children}) => {
     // }, []);
 
     return (
-        <DataContext.Provider value={{ user, setUser, balance, setBalance, categories, setCategories, PopUpActive, setPopUpActive, PopUpStatus, setPopUpStatus, PopUpMessage, setPopUpMessage, PopUpCloseable, setPopUpCloseable, BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable}}>
+        <DataContext.Provider value={{ user, setUser, balance, setBalance, categories, setCategories, PopUpActive, setPopUpActive, PopUpStatus, setPopUpStatus, PopUpMessage, setPopUpMessage, PopUpCloseable, setPopUpCloseable, BetModalActive, setBetModalActive, BetModalStatus, setBetModalStatus, BetModalMessage, setBetModalMessage, BetModalCloseable, setBetModalCloseable, isNavbarOpen, setIsNavbarOpen, toggleOpenNavbar, closeNavbar}}>
             {children}
         </DataContext.Provider>
     );

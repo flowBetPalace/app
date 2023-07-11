@@ -5,3 +5,25 @@
 
 .chooseoptionname { background-color: var(--sec-color); border-radius: 5px; box-sizing: border-box; justify-content: space-around; padding: .5rem 1rem;}
 .amount { background-color: var(--sec-color); border-radius: 5px; box-sizing: border-box; justify-content: space-around; padding: .5rem 1rem; color: var(--pri-color);}
+
+.betContainer { display: flex; justify-content: space-between; }
+.leftSection { display: flex; gap: 1rem; align-items: center; }
+.rightSection { display: flex; gap: 3rem;}
+
+
+@media (max-width: 1399.98px) {}
+
+/* `xl` applies to large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {}
+
+/* `lg` applies to medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .betContainer { flex-direction: column; }
+    .leftSection { justify-content: space-between;}
+    .rightSection { justify-content: space-between;}
+}
+
+/* `md` applies to small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {}
+
+@media (max-width: 575.98px) {}

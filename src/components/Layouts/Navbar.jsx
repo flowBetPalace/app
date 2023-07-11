@@ -21,7 +21,7 @@ export default function Navbar() {
         }
     }
 
-    const { user, setUser, balance, setBalance } = useContext(DataContext);
+    const { user, setUser, balance, setBalance, isNavbarOpen, setIsNavbarOpen, toggleOpenNavbar, closeNavbar } = useContext(DataContext);
 
     useEffect(() => fcl.currentUser.subscribe(setUser), [])
     console.log(user)
@@ -116,7 +116,7 @@ export default function Navbar() {
                             />
                         </Link>
                     </div>
-                    <div className={styles.center}>
+                    <div className={styles.center} data-open={isNavbarOpen}>
                         <ul>
                             <li>
                                 <Link href="/sports" className={styles.navLink}>
@@ -130,7 +130,7 @@ export default function Navbar() {
                             </li>
                         </ul>
                     </div>
-                    <div className={styles.right}>
+                    <div className={styles.right} data-open={isNavbarOpen}>
                         {(user?.addr === null) ? (
                                 <></>
                             ):(
@@ -149,13 +149,12 @@ export default function Navbar() {
                         {user.loggedIn ? <AuthedState />
                         : <UnauthenticatedState />
                         }
-                        {/* <div className={styles.connectBtn}>
-                            <button>
-                                Log in
-                            </button>
-                        </div> */}
-                        
                     </div>
+                    <button className={styles.toggleBtn} type="button" onClick={toggleOpenNavbar} data-open={isNavbarOpen}>
+                        <div className={styles.tbBar1}></div>
+                        <div className={styles.tbBar2}></div>
+                        <div className={styles.tbBar3}></div>
+                    </button>
                 </div>
             </div>
         </nav>
