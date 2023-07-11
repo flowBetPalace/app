@@ -131,6 +131,21 @@ export default function Navbar() {
                         </ul>
                     </div>
                     <div className={styles.right}>
+                        {(user?.addr === null) ? (
+                                <></>
+                            ):(
+                                <div className={styles.balance}>
+                                    <Image
+                                        src='/imgs/logo-flow.svg'
+                                        alt='FlowBetPalace logo'
+                                        width={20}
+                                        height={20}
+                                        priority 
+                                    />
+                                    {balance}
+                                </div>
+                            )
+                        }
                         {user.loggedIn ? <AuthedState />
                         : <UnauthenticatedState />
                         }
@@ -139,14 +154,7 @@ export default function Navbar() {
                                 Log in
                             </button>
                         </div> */}
-                        <button onClick={()=>(getFlowBalance(user?.addr))}>Fetch flow balance</button>
                         
-                        {(user?.addr === null) ? (
-                            <></>
-                        ):(
-                            <div>{balance}</div>
-                        )
-                        }
                     </div>
                 </div>
             </div>
