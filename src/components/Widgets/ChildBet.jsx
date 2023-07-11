@@ -5,7 +5,16 @@ import Image from 'next/image'
 import * as fcl from "@onflow/fcl";
 
 export default function ChildBet({ uuid, matchTitle, name, options, winnerOptionsIndex, odds, startDate, stopAcceptingBetsDate, endDate, acceptBets }) {
-    const { user, setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
+    const { user, balance, setBalance, setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
+
+    const getFlowBalance = async (address) => {
+        if (address) {
+            const account = await fcl.account(address);
+            setBalance((parseInt(account.balance) / 100000000).toFixed(2));
+            return account.balance;
+        }
+        return 'Try again';
+    };
 
     const onSubmitBuyBet = async (e,index) => {
         console.log('----',index);
@@ -123,6 +132,8 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                     setPopUpMessage('The transactions was successfull! Good luck!');
                     setPopUpStatus('success');
                     setPopUpCloseable(true);
+                    
+                    getFlowBalance(user?.addr);
 
                     setBetModalActive(false);
                     setBetModalMessage('');
