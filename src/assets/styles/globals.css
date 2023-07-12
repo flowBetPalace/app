@@ -15,6 +15,7 @@
     --black: #000000;
     --white: #FFFFFF;
     --white-hover: #c5c5c5;
+    --white-click: #c5c5c5;
     --white-filter: invert(99%) sepia(4%) saturate(5632%) hue-rotate(289deg) brightness(117%) contrast(100%); /* from black svg to white svg icon */
 
     --pri-color: #6DEB94;
@@ -33,6 +34,7 @@
 
     --text-color: #FFFFFF;
     --text-color-black: #000000;
+    --text-placeholder-color: #353F4F;
 
     --sec-text-color: #6C7C94;
 

@@ -35,7 +35,7 @@ export default function Sports() {
         const startDate = parseFormattedDate(rawStartDate);
         const endDate = parseFormattedDate(rawEndDate);
         const currentDate = new Date();
-        if ((currentDate > endDate) || (currentDate >= startDate && currentDate <= endDate)) {
+        if (currentDate>=startDate) {
             return false;
         }
         return true;
@@ -202,8 +202,6 @@ export default function Sports() {
         console.log(BetUuid)
         setBetData(response)
         console.log(response)
-        setAcceptBets(getAcceptBets(formatStartDate(response), formatEndDate(response)))
-        // setAcceptBets(getAcceptBets('6/7/2023 11:0:0', '7/7/2023 14:0:0'))
         setLoadingBetData(false)
 
     }
@@ -272,7 +270,7 @@ export default function Sports() {
         return () => {
             clearInterval(timer);
         };
-    }, []);
+    }, [betData]);
     
 
     const renderedChildBets = childBetsData.map(childBet=>

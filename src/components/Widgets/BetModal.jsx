@@ -68,6 +68,7 @@ export default function BetModal() {
                       alt="Close icon"
                       width={24}
                       height={24}
+                      className={style.closePop}
                     />
                   </button>
                 </div>

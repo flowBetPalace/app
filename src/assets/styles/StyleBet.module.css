@@ -23,3 +23,24 @@
 .betSectionNft .imgContainer { background-image: url('/imgs/topshot-example.png'); width: 100%; height: 200px; background-position: 50% 50%; background-size: 280px; border: 1px solid var(--stroke-color); border-radius: 5px; }
 .betSectionNft .rowNft { margin-top: 2rem;}
 .topshotLogo { margin-bottom: 2rem;}
+
+/* Pop up */
+.popName { font-size: var(--font-size-m); margin-bottom: .4rem;}
+.popCheck { filter: var(--pri-color-filter);}
+.popOptionName { font-size: var(--font-size); display: inline-flex; align-items: center; gap: .5rem;}
+.popMatchName { font-size: var(--font-size); color: var(--sec-text-color); margin-bottom: 1rem;}
+.popInput { background-color: var(--ter-color); width: 100%; border-radius: 5px; border: 1px solid var(--stroke-color); padding: .4rem .8rem; background-color: var(--bg-color); color: var(--text-color);}
+.popInput::placeholder { color: var(--text-placeholder-color)}
+input.popInput::-webkit-outer-spin-button, input.popInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    outline: none;
+}
+input.popInput[type=number] {
+     -moz-appearance: textfield;
+     outline: none;
+}
+.popProfit { font-size: var(--font-size-s); color: var(--sec-text-color);}
+.popButton { width: 100%; border: none; border-radius: 5px; padding: .6rem 1rem; background-color: var(--white); transition: 0.5s; margin-top: 1rem; }
+.popButton:hover { background-color: var(--white-hover); }
+.popButtonDis { width: 100%; border: none; border-radius: 5px; padding: .6rem 1rem; background-color: var(--stroke-color); transition: 0.5s; color: var(--ter-color); margin-top: 1rem;}

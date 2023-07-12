@@ -28,7 +28,7 @@
 .connectBtn:hover .dropdown { opacity: 1; display: block; }
 .dropdownLink { color: var(--text-color); text-decoration: none; transition: 0.2s; font-size: var(--font-size); }
 .dropdownLink:hover { color: var(--pri-color); text-decoration: none; }
-.dropdownLink img { width: auto; height: .8rem; vertical-align: text-top; margin-right: .4rem; transition: 0.2s; filter: invert(99%) sepia(2%) saturate(1191%) hue-rotate(292deg) brightness(112%) contrast(100%); display: inline-block; }
+.dropdownLink img { width: auto; height: .8rem; vertical-align: baseline; margin-right: .4rem; transition: 0.2s; filter: invert(99%) sepia(2%) saturate(1191%) hue-rotate(292deg) brightness(112%) contrast(100%); display: inline-block; }
 .dropdownLink:hover img { filter: var(--pri-color-filter); }
 
 .toggleBtn { background-color: unset; border: 0; z-index: 5; position: fixed; top: .6rem; right: 1rem; outline: none; padding-top: .25rem; padding-bottom: .25rem; transition: 0.4s; border-radius: 5px; padding-left: 6px; padding-right: 6px; display: none; }

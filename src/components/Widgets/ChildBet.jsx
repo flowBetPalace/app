@@ -6,11 +6,33 @@ import * as fcl from "@onflow/fcl";
 
 export default function ChildBet({ uuid, matchTitle, name, options, winnerOptionsIndex, odds, startDate, stopAcceptingBetsDate, endDate, acceptBets }) {
     const { user, balance, setBalance, setBetModalActive, setBetModalStatus, setBetModalMessage, setBetModalCloseable, setPopUpActive, setPopUpStatus, setPopUpMessage, setPopUpCloseable } = useContext(DataContext);
-    console.log("winner: ", winnerOptionsIndex);
+
+    function formatDateTime(dateValue){
+        const unixTimestamp = parseInt(dateValue);
+        const date = new Date(unixTimestamp * 1000);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // Months are zero-based, so add 1
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        //console.log(formattedDate);
+        return formattedDate;
+    }
+
+    function parseDate(formattedDate) {
+        const [datePart, timePart] = formattedDate.split(" ");
+        const [day, month, year] = datePart.split("/");
+        const [hours, minutes, seconds] = timePart.split(":");
+        return new Date(year, month - 1, day, hours, minutes, seconds);
+    }
 
     const getFlowBalance = async (address) => {
+        console.log("address: ", address);
         if (address) {
             const account = await fcl.account(address);
+            console.log("account: ", account);
             setBalance((parseInt(account.balance) / 100000000).toFixed(2));
             return account.balance;
         }
@@ -24,91 +46,111 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         setPopUpStatus('loading');
         setPopUpMessage('Loading...');
         setPopUpActive(true);
+
+        const currentDate = new Date();
+        if (currentDate >= parseDate(formatDateTime(startDate))) {
+            setPopUpCloseable(true);
+            setPopUpStatus('danger');
+            setPopUpMessage('Event has started, you can no longer bet.');
+
+            setBetModalActive(false);
+            setBetModalMessage('');
+            setBetModalCloseable(true);
+            setBetModalStatus('');
+
+            return;
+        }
+
         let amount = e.target.elements.amount.value
         // Check if amount is a whole number
         if (!amount.includes('.')) {
             amount += '.0'; // Append '.0' for decimal
         }
         // NEW
-        const transactionId = await fcl.mutate({
-            cadence: `
-            import FlowBetPalace from 0x48214e37c07e015b
-            import FlowToken from 0x7e60df042a9c0868
-            transaction(amount: UFix64,uuid: String,optionIndex:UInt64) {
-                prepare(acct: AuthAccount) {
-                    log("start")
-                    // start switchboard if its not started
-                    let profilecopy <- acct.load<@FlowBetPalace.UserSwitchboard>(from: FlowBetPalace.userSwitchBoardStoragePath)
-                    // if there is not any resrource of the profile create one else save the extracted one
-                    if(profilecopy == nil){
-                        //get the user address as required field for the function
-                        let address = acct.address.toString()
-            
-                        //create a new UserSwitchBoard resource
-                        let userSwitchBoardResource <-FlowBetPalace.createUserSwitchBoard(address: address)
-            
-                        //save the resource in account storage
-                        acct.save(<- userSwitchBoardResource,to:FlowBetPalace.userSwitchBoardStoragePath)
-                    
-                        //create a private link to the storage path
-                        acct.link<&AnyResource{FlowBetPalace.UserSwitchboardPublicInterface}>(FlowBetPalace.userSwitchBoardPublicPath,target:FlowBetPalace.userSwitchBoardStoragePath)
-                        log("account switchboard created")
-                        // destroy the resource as its null
-                        destroy profilecopy
-                    }else{
+        let transactionId;
+        try {
+            transactionId = await fcl.mutate({
+                cadence: `
+                import FlowBetPalace from 0x48214e37c07e015b
+                import FlowToken from 0x7e60df042a9c0868
+                transaction(amount: UFix64,uuid: String,optionIndex:UInt64) {
+                    prepare(acct: AuthAccount) {
+                        log("start")
+                        // start switchboard if its not started
+                        let profilecopy <- acct.load<@FlowBetPalace.UserSwitchboard>(from: FlowBetPalace.userSwitchBoardStoragePath)
+                        // if there is not any resrource of the profile create one else save the extracted one
+                        if(profilecopy == nil){
+                            //get the user address as required field for the function
+                            let address = acct.address.toString()
+                
+                            //create a new UserSwitchBoard resource
+                            let userSwitchBoardResource <-FlowBetPalace.createUserSwitchBoard(address: address)
+                
+                            //save the resource in account storage
+                            acct.save(<- userSwitchBoardResource,to:FlowBetPalace.userSwitchBoardStoragePath)
+                        
+                            //create a private link to the storage path
+                            acct.link<&AnyResource{FlowBetPalace.UserSwitchboardPublicInterface}>(FlowBetPalace.userSwitchBoardPublicPath,target:FlowBetPalace.userSwitchBoardStoragePath)
+                            log("account switchboard created")
+                            // destroy the resource as its null
+                            destroy profilecopy
+                        }else{
+                            // save the extracted resource
+                            // We use the force-unwrap operator  to get the value
+                            // out of the optional. It aborts if the optional is nil
+                            acct.save(<-profilecopy!,to:FlowBetPalace.userSwitchBoardStoragePath)
+                            log("account switchboard was already created")
+                        }
+                        //extract money to pay the bet
+                        //
+                        // Get a reference to the signer's stored vault
+                        let vaultRef = acct.borrow<&FlowToken.Vault>(from: /storage/flowTokenVault)
+                            ?? panic("Could not borrow reference to the owner's Vault!")
+                
+                        // Withdraw tokens from the signer's stored vault
+                        let vault <- vaultRef.withdraw(amount: amount)
+                
+                        // extract Profile resource of the account
+                        let profile <- acct.load<@FlowBetPalace.UserSwitchboard>(from: FlowBetPalace.userSwitchBoardStoragePath) ?? panic("user have not started his account")
+                
+                        // get admin account that stores resourced
+                        let accountFlowBetPalace = getAccount(0x48214e37c07e015b)
+                        log("getting ref")
+                        // get reference of the childBet resource
+                        let childBetRef = accountFlowBetPalace.getCapability<&AnyResource{FlowBetPalace.ChildBetPublicInterface}>(PublicPath(identifier:"betchild".concat(uuid))!)
+                                            .borrow() ?? panic("invalid childBet uuid")
+                
+                        log("ref getted")
+                        log(childBetRef)
+                        //create the UserBet
+                        let newUserBet <- childBetRef.newBet(optionIndex: optionIndex, vault: <-vault)
+                
+                        //add bet to the switchboard
+                        profile.addBet(newBet: <-newUserBet)
+                
                         // save the extracted resource
                         // We use the force-unwrap operator  to get the value
                         // out of the optional. It aborts if the optional is nil
-                        acct.save(<-profilecopy!,to:FlowBetPalace.userSwitchBoardStoragePath)
-                        log("account switchboard was already created")
+                        acct.save(<-profile,to:FlowBetPalace.userSwitchBoardStoragePath)
                     }
-                    //extract money to pay the bet
-                    //
-                    // Get a reference to the signer's stored vault
-                    let vaultRef = acct.borrow<&FlowToken.Vault>(from: /storage/flowTokenVault)
-                        ?? panic("Could not borrow reference to the owner's Vault!")
-            
-                    // Withdraw tokens from the signer's stored vault
-                    let vault <- vaultRef.withdraw(amount: amount)
-            
-                    // extract Profile resource of the account
-                    let profile <- acct.load<@FlowBetPalace.UserSwitchboard>(from: FlowBetPalace.userSwitchBoardStoragePath) ?? panic("user have not started his account")
-            
-                    // get admin account that stores resourced
-                    let accountFlowBetPalace = getAccount(0x48214e37c07e015b)
-                    log("getting ref")
-                    // get reference of the childBet resource
-                    let childBetRef = accountFlowBetPalace.getCapability<&AnyResource{FlowBetPalace.ChildBetPublicInterface}>(PublicPath(identifier:"betchild".concat(uuid))!)
-                                        .borrow() ?? panic("invalid childBet uuid")
-            
-                    log("ref getted")
-                    log(childBetRef)
-                    //create the UserBet
-                    let newUserBet <- childBetRef.newBet(optionIndex: optionIndex, vault: <-vault)
-            
-                    //add bet to the switchboard
-                    profile.addBet(newBet: <-newUserBet)
-            
-                    // save the extracted resource
-                    // We use the force-unwrap operator  to get the value
-                    // out of the optional. It aborts if the optional is nil
-                    acct.save(<-profile,to:FlowBetPalace.userSwitchBoardStoragePath)
-                }
-            
-                execute {
-                }
-            }`
-            ,
-            args: (arg, t) => [
-                arg(amount, t.UFix64),
-                arg(uuid, t.String),
-                arg(`${index}`, t.UInt64),
-            ],
-            payer: fcl.authz,
-            proposer: fcl.authz,
-            authorizations: [fcl.authz],
-            limit: 200
-        });
+                
+                    execute {
+                    }
+                }`
+                ,
+                args: (arg, t) => [
+                    arg(amount, t.UFix64),
+                    arg(uuid, t.String),
+                    arg(`${index}`, t.UInt64),
+                ],
+                payer: fcl.authz,
+                proposer: fcl.authz,
+                authorizations: [fcl.authz],
+                limit: 200
+            });
+        } catch (err) {
+            console.error(err);
+        }
         const statusPopUp = (res) => {
             console.log("res: ", res);
             switch (res.status) {
@@ -168,22 +210,34 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         const modalContent = (
             <form onSubmit={(e)=>{onSubmitBuyBet(e,index)}} action=''>
                 <h6>{name}</h6>
-                <p>
+                <p className={styleBet.popOptionName}>
                     <Image
-                        src=""
+                        // src=""
+                        src="/icons/check.svg"
                         alt="Check icon"
-                        width={16}
-                        height={16}
+                        // width={16}
+                        // height={16}
+                        width={21}
+                        height={21}
+                        className={styleBet.popCheck}
                     />
                     {bet}
                 </p>
-                <p>{match}</p>
-                <input type="number" step="0.1" id="amount" placeholder='Enter $FLOW amount to bet' />
-                <p>Profit: {profit}</p>
+                <p className={styleBet.popMatchName}>{match}</p>
+                <input
+                    type="number"
+                    step="0.1"
+                    id="amount"
+                    placeholder='Enter $FLOW amount to bet'
+                    className={styleBet.popInput}
+                />
+                <p className={styleBet.popProfit}>Profit: {profit}</p>
                 {user.loggedIn == null ? (
-                    <button disabled>Connect wallet to place bet</button>
+                    // <button disabled>Connect wallet to place bet</button>
+                    <button disabled className={styleBet.popButtonDis}>Connect wallet to place bet</button>
                 ) : (
-                    <button>Confirm bet</button>
+                    // <button>Confirm bet</button>
+                    <button className={styleBet.popButton}>Confirm bet</button>
                 )}
             </form>
         );
