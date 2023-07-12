@@ -18,6 +18,7 @@ import matchesData from "@/matches.json";
 
 export default function Home() {
 
+  const [ bets, setBets ] = useState([]);
   const [user, setUser] = useState({loggedIn: null})
   const [name, setName] = useState('')
   const [transactionStatus, setTransactionStatus] = useState(null) // NEW
@@ -116,6 +117,54 @@ export default function Home() {
     )
   }
 
+  async function getBets() {
+    const response = await fcl.query({
+      cadence: `
+        import FlowBetPalace from 0x48214e37c07e015b
+  
+        // This script gets all bets
+        
+        pub fun main :[[String]] {
+          let amountReturnedBets = 5
+          // Get the accounts' public account objects
+          let acct1 = getAccount(0x48214e37c07e015b)
+  
+          // Get references to the account's receivers
+          // by getting their public capability
+          // and borrowing a reference from the capability
+          let scriptRef = acct1.getCapability(FlowBetPalace.scriptPublicPath)
+                              .borrow<&FlowBetPalace.Script>()
+                              ?? panic("Could not borrow acct1 vault reference")
+  
+          let bets = scriptRef.getBets(amount: amountReturnedBets)
+          log(bets)
+          return bets
+        }
+      `
+    })
+  
+    console.log("response: ", response);
+    setBets(response)
+  }
+  
+  console.log(bets)
+  
+  const labeledData = bets.map((data) => ({
+    id: data[0],
+    match: data[1],
+    matchType: data[2],
+    category: data[3],
+    subcategory: data[4],
+  }));
+  
+  useEffect(() => {
+    try{
+        getBets()
+    }catch(err){
+        console.log(err)
+    }
+  }, [])
+
   return (
     <div>
       <Head>
@@ -138,8 +187,26 @@ export default function Home() {
               : <UnauthenticatedState />
             } */}
 
+            {/* Tab content */}
+            <div>
+                {labeledData.map((data) =>(
+                    <Match
+                    key={data.id}
+                    subcategory={data.subcategory}
+                    category={data.category}
+                    id={data.id}
+                    match={data.match}
+                    matchType={data.matchType}
+                    />
+                ))}
 
-            {matchesData.map((match, index) => (
+
+
+                
+            </div>
+
+
+            {/* {matchesData.map((match, index) => (
               <Match
               key={index}
               category={match.category}
@@ -154,7 +221,7 @@ export default function Home() {
               matchContractAddress={match.matchContractAddress}
               />
             )
-            )}
+            )} */}
 
 
           
@@ -162,7 +229,7 @@ export default function Home() {
 
 
 
-            <NBA />
+            {/* <NBA /> */}
           </div>
         </header>
       </main>
