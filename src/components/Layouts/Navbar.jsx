@@ -15,7 +15,7 @@ export default function Navbar() {
     
     const formatAddress = (address) => {
         if (address?.length === 18) {
-          return address.substring(0, 3) + "..." + address.substring(16);
+          return address.substring(0, 4) + "..." + address.substring(15);
         } else {
           return address;
         }

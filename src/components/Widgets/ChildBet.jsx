@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { DataContext } from '@/context/DataContext';
 import styleBet from '@/assets/styles/StyleBet.module.css'
 import Image from 'next/image'
@@ -205,11 +205,16 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         }
     }
 
-    const openBetModal = (index, name, bet, match) => {
-        let profit = '-';
+    const openBetModal = (index, name, bet, match, odds) => {
+        let inputValue = 0;
+        let profit = inputValue * odds;
+        const handleInputChange = (e) => {
+            inputValue = e.target.value;
+            profit = inputValue * odds;
+        };
         const modalContent = (
             <form onSubmit={(e)=>{onSubmitBuyBet(e,index)}} action=''>
-                <h6>{name}</h6>
+                <h6 className={styleBet.popName}>{name}</h6>
                 <p className={styleBet.popOptionName}>
                     <Image
                         // src=""
@@ -228,8 +233,10 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                     type="number"
                     step="0.1"
                     id="amount"
+                    name='amount'
                     placeholder='Enter $FLOW amount to bet'
                     className={styleBet.popInput}
+                    onChange={handleInputChange}
                 />
                 <p className={styleBet.popProfit}>Profit: {profit}</p>
                 {user.loggedIn == null ? (
@@ -252,7 +259,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         <p className={styleBet.childName}>{name}</p>
         <div className={styleBet.childContainer}>
             {options.map((option, optionIndex) => (
-                <button key={optionIndex} data-key={optionIndex} data-winner={optionIndex === winnerOptionsIndex[0] ? 'true' : 'false'} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle)} disabled={!acceptBets} >
+                <button key={optionIndex} data-key={optionIndex} data-winner={optionIndex === winnerOptionsIndex[0] ? 'true' : 'false'} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle, (parseFloat(odds[optionIndex])).toFixed(2))} disabled={!acceptBets} >
                     <p className={styleBet.option}>
                         {option}
                     </p>
