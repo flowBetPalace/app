@@ -29,10 +29,8 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
     }
 
     const getFlowBalance = async (address) => {
-        console.log("address: ", address);
         if (address) {
             const account = await fcl.account(address);
-            console.log("account: ", account);
             setBalance((parseInt(account.balance) / 100000000).toFixed(2));
             return account.balance;
         }
@@ -146,7 +144,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                 payer: fcl.authz,
                 proposer: fcl.authz,
                 authorizations: [fcl.authz],
-                limit: 200
+                limit: 500
             });
         } catch (err) {
             console.error(err);
