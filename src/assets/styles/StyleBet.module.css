@@ -48,3 +48,7 @@ input.popInput[type=number] {
 .popButton { width: 100%; border: none; border-radius: 5px; padding: .6rem 1rem; background-color: var(--white); transition: 0.5s; margin-top: 1rem; }
 .popButton:hover { background-color: var(--white-hover); }
 .popButtonDis { width: 100%; border: none; border-radius: 5px; padding: .6rem 1rem; background-color: var(--stroke-color); transition: 0.5s; color: var(--ter-color); margin-top: 1rem;}
+.popProfit { font-size: var(--font-size-s); color: var(--sec-text-color);}
+.popProfit { font-size: var(--font-size-s); color: var(--sec-text-color);}
+.popProfit { font-size: var(--font-size-s); color: var(--sec-text-color);}
+.popProfit { font-size: var(--font-size-s); color: var(--sec-text-color);}
