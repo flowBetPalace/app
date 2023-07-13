@@ -11,9 +11,12 @@
 .childName { font-size: var(--font-size); margin-bottom: .5rem;}
 .childContainer { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;}
 .childSelection { background-color: var(--sec-color); border-radius: 5px; margin-bottom: .2rem; display: flex; flex-direction: row;
-    flex: 0 0 calc(50% - .5rem); box-sizing: border-box; justify-content: space-around; padding: .5rem 0rem; cursor: pointer;}
-.childSelection[disabled] { background-color: red!important; }
-.childSelection[data-winner='true'] { background-color: green!important; }
+    flex: 0 0 calc(50% - .5rem); box-sizing: border-box; justify-content: space-around; padding: .5rem 0rem; cursor: pointer; border: none; }
+.childSelection:hover { background-color: var(--sec-color-hover);}
+.childSelection[disabled] { background-color: var(--stroke-color); }
+.childSelection[disabled] .option, .childSelection[disabled] .odds  { color: var(--ter-color-hover); }
+.childSelection[data-winner='true'] { background-color: var(--pri-color); }
+.childSelection[data-winner='true'] .option, .childSelection[data-winner='true'] .odds { color: var(--ter-color);}
 .odds { color: var(--pri-color); font-size: var(--font-size-xs);}
 .option { font-size: var(--font-size-s); color: var(--text-color);} 
 
