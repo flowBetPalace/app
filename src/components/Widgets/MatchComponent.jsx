@@ -29,7 +29,7 @@ export default function MatchComponent({ subcategory, category, id, match, match
                                 </p>
                             </div> */}
                         </div>
-                        <div className={style.statusAndInfo}>
+                        {/* <div className={style.statusAndInfo}>
                             <div className={style.status}>
                                 <div className={style.statusLive}>
                                     <Image 
@@ -46,7 +46,7 @@ export default function MatchComponent({ subcategory, category, id, match, match
                                     Ends in 31 min
                                 </p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={style.secondCol + ' col-6'}>
                         <Link href={'/sports/bet/' + id} className={style.viewMatch}>View match</Link>

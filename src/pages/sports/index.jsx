@@ -71,10 +71,11 @@ export default function Sports() {
                 arg(currentItem, t.String),
                 arg("0", t.Int)
             ]
-        },)
-        setBets(response)
+        },);
+        console.log("responseDiego: ", response);
+        setBets(response);
     }
-    console.log(bets)
+    console.log("betsDiego",bets);
 
     const labeledData = bets.map((data) => ({
         id: data[0],
@@ -83,6 +84,7 @@ export default function Sports() {
         category: data[3],
         subcategory: data[4],
     }));
+    console.log("labeledDataDiego: ", labeledData);
 
     useEffect(() => {
         try{
@@ -90,10 +92,7 @@ export default function Sports() {
         }catch(err){
             console.log(err)
         }
-
-
-
-    }, [currentItem])
+    }, [currentItem]);
 
 
     return (
@@ -103,6 +102,7 @@ export default function Sports() {
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Thetatix web app" />
                 <link rel="icon" href="/favicon.ico" />
+                
             </Head>
             <main className={styleGlobal.main}>
                 <header className={styleSports.header}>

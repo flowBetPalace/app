@@ -10,8 +10,8 @@ export default function NFTs({matchId, category}) {
     const [matchNFTs, setMatchNFTs] = useState([]);
     // const [matchCollection, setMatchCollection] = useState([]);
 
-    const getMetadata = function (matchId) {
-        fetch('../../nfts.json')
+    const getMetadata = async function (matchId) {
+        await fetch('../../nfts.json')
             .then((response) => response.json())
             .then((data) => {
                 const nfts = data.nfts;
@@ -47,7 +47,7 @@ export default function NFTs({matchId, category}) {
                     />
                     <div className="row mb-3">
                         {matchNFTs.map((NFT) => (
-                            <div className="col-6">
+                            <div className="col-6" key={NFT._id}>
                                 <div className={style.imgContainer}>
                                     <Image
                                         src={NFT.image}

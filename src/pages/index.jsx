@@ -162,7 +162,7 @@ export default function Home() {
 
 
 
-            <NBA />
+            {/* <NBA /> */}
           </div>
         </header>
       </main>
