@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -26,6 +25,11 @@ export default function NFTs({matchId, category}) {
     useEffect(() => {
         getMetadata(matchId);
     }, [matchId]);
+
+    if (matchNFTs.length === 0) {
+        return null;
+    }
+
     return (
         <div className="col-5">
             <div className={style.nftContainer}>
