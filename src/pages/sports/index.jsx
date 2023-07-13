@@ -36,7 +36,7 @@ export default function Sports() {
         { id: 'nfl', label: '🏉 Football', subcategory: 'nfl' },
         { id: 'basket', label: '🏀 Basketball', subcategory: 'basket' },
         { id: 'mma', label: '🥊 MMA(UFC)', subcategory: 'mma' },
-        // { id: 'formula1', label: '🏎️ Formula 1', subcategory: 'formula1' },
+        { id: 'formula1', label: '🏎️ Formula 1', subcategory: 'formula1' },
         { id: 'motogp', label: '🏍️ Moto Gp', subcategory: 'motogp' },
     ];
 
