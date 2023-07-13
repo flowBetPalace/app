@@ -18,7 +18,7 @@ export default function Sports() {
     const [currentItem, setCurrentItem] = useState("soccer");
     const [cachedContent, setCachedContent] = useState({});
     const { categories, setCategories } = useContext(DataContext);
-    const [ bets, setBets ] = useState([]);
+    const [bets, setBets] = useState([]);
     const handleTabClick = (item) => {
         setCurrentItem(item);
     };
@@ -38,31 +38,52 @@ export default function Sports() {
         { id: 'mma', label: '🥊 MMA(UFC)', subcategory: 'mma' },
         { id: 'formula1', label: '🏎️ Formula 1', subcategory: 'formula1' },
         { id: 'motogp', label: '🏍️ Moto Gp', subcategory: 'motogp' },
-      ];
+    ];
 
 
     async function getBets() {
+        // const response = await fcl.query({
+        //     cadence: `
+        //         import FlowBetPalace from 0xd19f554fdb83f838
+
+        //         // This script gets recent added bets
+
+        //         pub fun main(category: String,skip: Int) :[[String]]{
+        //             let amountReturnedBets = 2
+        //             // Get the accounts' public account objects
+        //             let acct1 = getAccount(0xd19f554fdb83f838)
+
+        //             // Get references to the account's receivers
+        //             // by getting their public capability
+        //             // and borrowing a reference from the capability
+        //             let scriptRef = acct1.getCapability(FlowBetPalace.scriptPublicPath)
+        //                                 .borrow<&FlowBetPalace.Script>()
+        //                                 ?? panic("Could not borrow acct1 vault reference")
+
+        //             let bets = scriptRef.getCategoryBets(categoryy: category)
+        //             log("bets")
+        //             log(bets)
+        //             return bets
+        //         }
+
+        //     `,
+        //     args: (arg, t) => [
+        //         arg(currentItem, t.String),
+        //         arg("0", t.Int)
+        //     ]
+        // },);
+
         const response = await fcl.query({
             cadence: `
-                import FlowBetPalace from 0x48214e37c07e015b
+                import FlowBetPalace from 0xd19f554fdb83f838
 
                 // This script gets recent added bets
                 
                 pub fun main(category: String,skip: Int) :[[String]]{
-                    let amountReturnedBets = 5
-                    // Get the accounts' public account objects
-                    let acct1 = getAccount(0x48214e37c07e015b)
+                    
                 
-                    // Get references to the account's receivers
-                    // by getting their public capability
-                    // and borrowing a reference from the capability
-                    let scriptRef = acct1.getCapability(FlowBetPalace.scriptPublicPath)
-                                        .borrow<&FlowBetPalace.Script>()
-                                        ?? panic("Could not borrow acct1 vault reference")
-                
-                    let bets = scriptRef.getCategoryBets(category: category,amount: amountReturnedBets,skip: skip)
-                    log("bets")
-                    log(bets)
+                    let bets = FlowBetPalace.getCategoryBets(categoryy: category)
+    
                     return bets
                 }
             
@@ -72,10 +93,12 @@ export default function Sports() {
                 arg("0", t.Int)
             ]
         },);
-        console.log("responseDiego: ", response);
+        console.log("response bets: ", response);
+
+
         setBets(response);
     }
-    console.log("betsDiego",bets);
+    console.log("betsDiego", bets);
 
     const labeledData = bets.map((data) => ({
         id: data[0],
@@ -87,9 +110,10 @@ export default function Sports() {
     console.log("labeledDataDiego: ", labeledData);
 
     useEffect(() => {
-        try{
+        try {
             getBets()
-        }catch(err){
+
+        } catch (err) {
             console.log(err)
         }
     }, [currentItem]);
@@ -102,7 +126,7 @@ export default function Sports() {
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Thetatix web app" />
                 <link rel="icon" href="/favicon.ico" />
-                
+
             </Head>
             <main className={styleGlobal.main}>
                 <header className={styleSports.header}>
@@ -114,7 +138,7 @@ export default function Sports() {
                         </div>
                     </div>
                 </header>
-                
+
                 <section className={styleSports.tabSection}>
                     <div className={styleGlobal.sectionContainer + ' container'}>
                         {/* Tabbed navigation */}
@@ -128,26 +152,26 @@ export default function Sports() {
                                     {tab.label}
                                 </div>
                             ))}
-                        </div>  
+                        </div>
                         {/* <button onClick={() => console.log(labeledData)}>labeled data</button> */}
                         <br />
-                        
+
                         {/* Tab content */}
                         <div className={styleSports.tabContent}>
-                            {labeledData.map((data) =>(
+                            {labeledData.map((data) => (
                                 <MatchComponent
-                                key={data.id}
-                                subcategory={data.subcategory}
-                                category={data.category}
-                                id={data.id}
-                                match={data.match}
-                                matchType={data.matchType}
+                                    key={data.id}
+                                    subcategory={data.subcategory}
+                                    category={data.category}
+                                    id={data.id}
+                                    match={data.match}
+                                    matchType={data.matchType}
                                 />
                             ))}
 
 
 
-                            
+
                         </div>
 
                         {/* OLD ONE */}
@@ -193,7 +217,7 @@ export default function Sports() {
                         {/* TESTING */}
                         {/* Render the content based on the selected tab */}
                         {/* {currentItem === "soccer" && <div className={styleSports.tabContent}> */}
-                            {/* <div>
+                        {/* <div>
                                 {bets.map((data, index) =>(
                                     <div key={index}>
                                         <p>{data[0]}</p>

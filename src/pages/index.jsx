@@ -115,7 +115,54 @@ export default function Home() {
       </div>
     )
   }
+  async function getBets() {
+    // const response = await fcl.query({
+    //     cadence: `
+    //         import FlowBetPalace from 0xd19f554fdb83f838
 
+    //         // This script gets recent added bets
+            
+    //         pub fun main() :[[String]]{
+    //             let amountReturnedBets = 5
+    //             // Get the accounts' public account objects
+    //             let acct1 = getAccount(0xd19f554fdb83f838)
+            
+    //             // Get references to the account's receivers
+    //             // by getting their public capability
+    //             // and borrowing a reference from the capability
+    //             let scriptRef = acct1.getCapability(FlowBetPalace.scriptPublicPath)
+    //                                 .borrow<&FlowBetPalace.Script>()
+    //                                 ?? panic("Could not borrow acct1 vault reference")
+            
+    //                                 let bets = scriptRef.getBets(amount: amountReturnedBets)
+    //                                 log(bets)
+    //                                 return bets
+    //         }
+        
+    //     `,
+    //     args: (arg, t) => [
+    //     ]
+    // },);
+    const response = await fcl.query({
+          cadence: `
+          import FlowBetPalace from 0xd19f554fdb83f838
+
+          // This script gets recent added bets
+          
+          pub fun main() :[[String]]{
+              
+          
+              let bets = FlowBetPalace.getBets(amount: 2)
+
+              return bets
+          }
+        
+          `,
+          args: (arg, t) => [
+          ]
+      },);
+    console.log("response: ", response);}
+    getBets()
   return (
     <div>
       <Head>
