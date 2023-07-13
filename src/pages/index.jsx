@@ -177,7 +177,7 @@ export default function Home() {
             <div className={styleHome.subtitleContainer}>
               <p className={styleGlobal.fontL}>🔥 Hot matches</p>
               <Link href="/sports" className={styleGlobal.btnTypeTwo}>
-                View all nepe
+                View all
               </Link>
             </div>
             {/* {user.loggedIn
