@@ -14,7 +14,7 @@ import HomeCard from '@/components/Widgets/HomeCard';
 
 import { DataContext } from '@/context/DataContext';
 
-import matchesData from "@/matches.json";
+// import matchesData from "@/matches.json";
 
 export default function Home() {
 
@@ -22,6 +22,7 @@ export default function Home() {
   const [name, setName] = useState('')
   const [transactionStatus, setTransactionStatus] = useState(null) // NEW
   const {categories, setCategories } = useContext(DataContext);
+  const [matchesData, setMatchesData] = useState([]);
 
 
   useEffect(() => fcl.currentUser.subscribe(setUser), [])
@@ -161,8 +162,12 @@ export default function Home() {
           args: (arg, t) => [
           ]
       },);
-    console.log("response: ", response);}
-    getBets()
+    console.log("response: ", response);
+    setMatchesData(response);
+  }
+  useEffect(() => {
+    getBets();
+  }, []);
   return (
     <div>
       <Head>
@@ -186,30 +191,27 @@ export default function Home() {
             } */}
 
 
-            {matchesData.map((match, index) => (
-              <Match
-              key={index}
-              category={match.category}
-              nameA={match.nameA}
-              nameB={match.nameB}
-              scoreA={match.scoreA}
-              scoreB={match.scoreB}
-              winner={match.winner}
-              startDate={match.startDate}
-              bets={match.bets}
-              liquidity={match.liquidity}
-              matchContractAddress={match.matchContractAddress}
-              />
-            )
+            {matchesData.map((match) => (
+                <Match
+                  key={match[0]}
+                  subcategory={match[4]}
+                  category={match[3]}
+                  id={match[0]}
+                  match={match[1]}
+                  matchType={match[2]}
+                  // category={match.category}
+                  // nameA={match.nameA}
+                  // nameB={match.nameB}
+                  // scoreA={match.scoreA}
+                  // scoreB={match.scoreB}
+                  // winner={match.winner}
+                  // startDate={match.startDate}
+                  // bets={match.bets}
+                  // liquidity={match.liquidity}
+                  // matchContractAddress={match.matchContractAddress}
+                />
+              )
             )}
-
-
-          
-
-
-
-
-            {/* <NBA /> */}
           </div>
         </header>
       </main>
