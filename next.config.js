@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '/media/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'assets.laligagolazos.com',
+        port: '',
+        pathname: '/editions/**',
+      },
     ],
   },
 }

@@ -12,6 +12,7 @@ import PopUp from "@/components/Widgets/PopUp";
 import BetModal from '@/components/Widgets/BetModal';
 import ChildBet from '@/components/Widgets/ChildBet';
 import Timer from "@/components/Widgets/Timer";
+import NFTs from "@/components/Layouts/NFTs";
 
 import styleGlobal from '@/assets/styles/Global.module.css'
 import styleSports from '@/assets/styles/StyleSports.module.css'
@@ -70,8 +71,6 @@ export default function Sports() {
         return new Date(year, month - 1, day, hours, minutes, seconds);
     }
 
-    
-
     function gettimeDifference(startDatee, endDatee) {
         const startDate = parseFormattedDate(startDatee);
         const endDate = parseFormattedDate(endDatee);
@@ -113,9 +112,6 @@ export default function Sports() {
 
         return `Starting in ${days} days ${hours} hours ${minutes} minutes`;
     }
-
-
-
 
 
     async function getBetData() {
@@ -199,9 +195,7 @@ export default function Sports() {
             ]
         },)
         console.log('bets response',response)
-        console.log(BetUuid)
         setBetData(response)
-        console.log(response)
         setLoadingBetData(false)
 
     }
@@ -264,7 +258,8 @@ export default function Sports() {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setAcceptBets(getAcceptBets(formatStartDate(betData), formatEndDate(betData)))
+            setAcceptBets(getAcceptBets(formatStartDate(betData), formatEndDate(betData)));
+            // console.log(getAcceptBets(formatStartDate(betData), formatEndDate(betData)));
         }, 1000);
     
         return () => {
@@ -294,11 +289,10 @@ export default function Sports() {
     return <>
         <BetModal />
         <PopUp />
-        { validCategories.includes(betData.category) ?
         <div className={styleBet.betSectionNft}>
             <div className="container">
                 <div className="row">
-                    <div className="col-7">
+                    <div className="col">
                         <div className='d-flex justify-content-between'>
                             <div className={styleBet.betTitle}>
                                 <p className={styleBet.name}>{betData.name}</p>
@@ -306,105 +300,22 @@ export default function Sports() {
                                     rawStartDate={formatDateTime(betData.startDate)}
                                     rawEndDate={formatDateTime(betData.endDate)}
                                 />
-                                {/* <Timer
-                                    rawStartDate={'11/7/2023 14:23:0'}
-                                    rawEndDate={'11/7/2023 14:31:0'}
-                                /> */}
-                                {/* <div className={styleBet.status}>{timeDifference}</div> */}
-                                {/* <p>End date: {formatEndDate(betData)}</p>
-                                <p>Start date: {formatStartDate(betData)}</p> */}
                             </div>
                             {/* <button href="#" className={styleGlobal.btnTypeTwo}>
                                 Claim reward
                             </button> */}
                         </div>
-                        <div>
-                            {/* {childBetsData[0].name} */}
-                            {renderedChildBets}
-                        </div> 
+                        {renderedChildBets}
                     </div>
-                    <div className="col-5">
-                        <div className={styleBet.nftContainer}>
-                            <p className={styleBet.matchMomentsText}>Featured NFTs</p>
-                            {(betData.category) === "soccer"
-                            ?
-                            <div>
-                                <Image
-                                    src="/imgs/top-shot-logo.svg"
-                                    alt="Top shot logo"
-                                    width={100}
-                                    height={30}
-                                    className={styleBet.topshotLogo}
-                                />
-                                <div className="row mb-3">
-                                    <div className="col-6">
-                                        <div className={styleBet.imgContainer}>
-                                        </div>
-                                    </div>
-                                    <div className="col-6">
-                                        <div className={styleBet.imgContainer}>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-6">
-                                        <div className={styleBet.imgContainer}>
-                                        </div>
-                                    </div>
-                                    <div className="col-6">
-                                        <div className={styleBet.imgContainer}>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            :
-                            (betData.category) === "basket"
-                            ?
-                            <div>
-
-                            </div>
-                            :
-                            <div>
-                                Missing categories
-                            </div>
-                            }
-                            
-                            
-                            
-                            {/* <video loop autoplay playsinline preload='auto' height={150} width={150}>
-                                <source src='https://assets.nbatopshot.com/editions/5_2023_nba_playoffs_common/23770903-57de-49a9-b69c-86b9273d3b81/play_23770903-57de-49a9-b69c-86b9273d3b81_5_2023_nba_playoffs_common_capture_Animated_1080_1920_Black.mp4' />
-                            </video> */}
-                        </div>
-
-                    </div>
-
+                    {validCategories.includes(betData.category) && (
+                        <NFTs
+                            matchId={BetUuid}
+                            category={betData.category}
+                        />
+                    )}
                 </div>
                 {/* .category, .description, .endDate, imageLink, name, startDate, stopAcceptingBetsDate */}
-                   
-            </div>   
+            </div>
         </div>
-        :
-        <div className={styleBet.betSection}>
-            <div className="container">
-                {/* .category, .description, .endDate, imageLink, name, startDate, stopAcceptingBetsDate */}
-                <div className='d-flex justify-content-between'>
-                    <div className={styleBet.betTitle}>
-                        <p className={styleBet.name}>{betData.name}</p>
-                        <div className={styleBet.status}>{timeDifference}</div>
-                        {/* <p>End date: {formatEndDate(betData)}</p>
-                        <p>Start date: {formatStartDate(betData)}</p> */}
-                    </div>
-                    {/* <button href="#" className={styleGlobal.btnTypeTwo}>
-                        Claim reward
-                    </button> */}
-                </div>
-                <div>
-                    {/* {childBetsData[0].name} */}
-                    {renderedChildBets}
-                </div>    
-            </div>   
-        </div>
-        }
     </>
 }

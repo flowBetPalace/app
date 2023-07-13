@@ -10,16 +10,22 @@ export default function Timer({rawStartDate, rawEndDate}) {
         const [hours, minutes, seconds] = timePart.split(":");
         return new Date(year, month - 1, day, hours, minutes, seconds);
     }
+    
+    const startDate = parseDate(rawStartDate);
+    const endDate = parseDate(rawEndDate);
 
     function getTimeRemaining() {
         const currentDate = new Date();
         const timeDifferenceStart = startDate - currentDate;
+        // console.log(timeDifferenceStart);
         const timeDifferenceEnd = endDate - currentDate;
+        // console.log(timeDifferenceEnd);
         if (timeDifferenceStart > 0) {
             const days = Math.floor(timeDifferenceStart / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeDifferenceStart % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeDifferenceStart % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDifferenceStart % (1000 * 60)) / 1000);
+            // console.log("day: ", days, " hours: ", hours, "minutes: ", minutes, "seconds: ", seconds, "live: ", false);
             return {
                 days,
                 hours,
@@ -32,6 +38,7 @@ export default function Timer({rawStartDate, rawEndDate}) {
             const hours = Math.floor((timeDifferenceEnd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeDifferenceEnd % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDifferenceEnd % (1000 * 60)) / 1000);
+            // console.log("day: ", days, " hours: ", hours, "minutes: ", minutes, "seconds: ", seconds, "live: ", true);
             return {
                 days,
                 hours,
@@ -40,6 +47,7 @@ export default function Timer({rawStartDate, rawEndDate}) {
                 live: true
             };
         } else {
+            // console.log("day: ", 0, " hours: ", 0, "minutes: ", 0, "seconds: ", 0, "live: ", false);
             return {
                 days: 0,
                 hours: 0,
@@ -49,9 +57,6 @@ export default function Timer({rawStartDate, rawEndDate}) {
             };
         }
     }
-
-    const startDate = parseDate(rawStartDate);
-    const endDate = parseDate(rawEndDate);
     
     const [timeRemaining, setTimeRemaining] = useState(getTimeRemaining());
 
@@ -63,7 +68,7 @@ export default function Timer({rawStartDate, rawEndDate}) {
         return () => {
             clearInterval(timer);
         };
-    }, []);
+    }, [startDate, endDate]);
 
 
     let timerContent = null;
