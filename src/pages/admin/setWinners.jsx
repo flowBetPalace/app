@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from "react"
 import * as fcl from "@onflow/fcl";
 
@@ -77,4 +78,10 @@ export default function createBet() {
             <div onClick={onSubmit}>Create</div>
         </div>
     </div>
+=======
+export default function setWinners() {
+    return(
+        <div>Deployment</div>
+    )
+>>>>>>> 67757f998c5eb67f849ef8134e4c556aaced46f4
 }
