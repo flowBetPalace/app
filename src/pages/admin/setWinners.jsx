@@ -57,7 +57,7 @@ export default function createBet() {
             payer: fcl.authz,
             proposer: fcl.authz,
             authorizations: [fcl.authz],
-            limit: 200
+            limit: 500
         })
         try {
             fcl.tx(transactionId).subscribe(res => console.log("res", res))
