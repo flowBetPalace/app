@@ -21,8 +21,8 @@ export default function HomeCard(){
                         />
                     </p>
                 </div>
-                <Link href="#" className={styleGlobal.btnTypeOne}>
-                    Github Docs
+                <Link href="https://flow-hackaton.gitbook.io/flowbetpalace/technical-docs" target="_blank" className={styleGlobal.btnTypeOne}>
+                    Gitbook Docs
                 </Link>
                 
             </div>
