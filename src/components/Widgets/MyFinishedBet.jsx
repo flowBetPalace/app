@@ -1,7 +1,13 @@
 import styleMyBet from '@/assets/styles/MyBet.module.css'
 import styleGlobal from '@/assets/styles/Global.module.css'
 
+import Link from 'next/link';
+
 export default function MyFinishedBet ({userBet}){
+    const formatAmount = (amount) => {
+        var res = parseFloat(amount).toFixed(2);
+        return res;
+    }
     
     return (
         <div className={styleMyBet.mybet}>

@@ -257,7 +257,7 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
         <p className={styleBet.childName}>{name}</p>
         <div className={styleBet.childContainer}>
             {options.map((option, optionIndex) => (
-                <button key={optionIndex} data-key={optionIndex} data-winner={optionIndex === winnerOptionsIndex[0] ? 'true' : 'false'} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle, (parseFloat(odds[optionIndex])).toFixed(2))} disabled={!acceptBets} >
+                <button key={optionIndex} data-key={optionIndex} data-winner={optionIndex === parseInt(winnerOptionsIndex[0]) ? 'true' : 'false'} className={styleBet.childSelection} onClick={() => openBetModal(optionIndex, name, option, matchTitle, (parseFloat(odds[optionIndex])).toFixed(2))} disabled={!acceptBets} >
                     <p className={styleBet.option}>
                         {option}
                     </p>

@@ -13,7 +13,7 @@ export default function MyOpenBet ({userBet}){
 
     const formatAmount = (amount) => {
         var res = parseFloat(amount).toFixed(2);
-        return res
+        return res;
     }
 
     const onClaimReward = async () => {
