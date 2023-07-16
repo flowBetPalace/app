@@ -35,20 +35,20 @@ export default function NFTs({matchId, category}) {
             <div className={style.nftContainer}>
                 <h3 className={style.matchMomentsText}>Featured NFTs</h3>
                 <div>
-                    {/* <Image
+                    <Image
                         src={'/imgs/' + category + '.svg'}
-                        alt="Top shot logo"
-                        width={100}
+                        alt="NFTs logo"
+                        width={150}
                         height={30}
                         className={style.topshotLogo}
-                    /> */}
-                    <Image
+                    />
+                    {/* <Image
                         src="/imgs/top-shot-logo.svg"
                         alt="Top shot logo"
                         width={100}
                         height={30}
                         className={style.topshotLogo}
-                    />
+                    /> */}
                     <div className="row mb-3">
                         {matchNFTs.map((NFT) => (
                             <div className="col-6" key={NFT._id}>
