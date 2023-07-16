@@ -119,12 +119,12 @@ export default function Navbar() {
                     <div className={styles.center} data-open={isNavbarOpen}>
                         <ul>
                             <li>
-                                <Link href="/sports" className={styles.navLink}>
+                                <Link href="/sports" className={styles.navLink} onClick={closeNavbar}>
                                     Sports
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/mybets" className={styles.navLink}>
+                                <Link href="/mybets" className={styles.navLink} onClick={closeNavbar}>
                                     My bets
                                 </Link>
                             </li>

@@ -2,3 +2,20 @@
 .Homecard .content { width: 50%; align-items: center; text-align: center; margin: 2rem auto;}
 .title { font-size: var(--font-size-title);}
 .subtitle { font-size: var(--font-size-subtitle); font-weight: 400; display: inline-flex; align-items: center; gap: .6rem;}
+
+@media (max-width: 1399.98px) {}
+
+/* `xl` applies to large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {}
+
+/* `lg` applies to medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .title { font-size: 2rem; margin-bottom: .5rem;}
+    .subtitle { margin-bottom: .5rem;}
+    .Homecard .content { width: 100%; gap: 1rem;}
+}
+
+/* `md` applies to small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {}
+
+@media (max-width: 575.98px) {}
