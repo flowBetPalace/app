@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image'
 import style from '@/assets/styles/Timer.module.css'
 
-export default function Timer({rawStartDate, rawEndDate}) {
+export default function Timer({rawStartDate, rawEndDate, goToBets}) {
 
     function parseDate(rawDate) {
         const [datePart, timePart] = rawDate.split(" ");
@@ -20,6 +21,11 @@ export default function Timer({rawStartDate, rawEndDate}) {
         // console.log(timeDifferenceStart);
         const timeDifferenceEnd = endDate - currentDate;
         // console.log(timeDifferenceEnd);
+        if (isNaN(timeDifferenceStart) && isNaN(timeDifferenceEnd)) {
+            return {
+                loading: true
+            }
+        }
         if (timeDifferenceStart > 0) {
             const days = Math.floor(timeDifferenceStart / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeDifferenceStart % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -73,7 +79,11 @@ export default function Timer({rawStartDate, rawEndDate}) {
 
     let timerContent = null;
 
-    if (timeRemaining.live) {
+    if (timeRemaining.loading) {
+        timerContent = (
+            <p>Loading...</p>
+        )
+    } else if (timeRemaining.live) {
         timerContent = (
             <div className='d-flex gap-3'>
                 <div className={style.timerLive}>
@@ -88,20 +98,33 @@ export default function Timer({rawStartDate, rawEndDate}) {
                     </p>
                 </div>
                 <p>
-                    Remaining time: {timeRemaining.days} days {timeRemaining.hours} hours {timeRemaining.minutes} minutes {timeRemaining.seconds} seconds
+                    Remaining time:
+                    {timeRemaining.days > 0 && (' ' + timeRemaining.days + ' days ')}
+                    {(timeRemaining.hours > 0 || timeRemaining.days > 0) && (timeRemaining.hours + ' hours ')}
+                    {(timeRemaining.minutes > 0 || timeRemaining.hours > 0 || timeRemaining.days > 0) && (timeRemaining.minutes + ' minutes ')}
+                    {timeRemaining.seconds} seconds
                 </p>
             </div>
         );
     } else if (timeRemaining.days === 0 && timeRemaining.hours === 0 && timeRemaining.minutes === 0 && timeRemaining.seconds === 0) {
-        timerContent = (
-            <p>
+        timerContent = <>
+            <p className='d-inline-block'>
               Event ended
             </p>
-        );
+            {goToBets && (
+                <Link href="/mybets" className={'float-end text-white'}>
+                    Go to my bets
+                </Link>
+            )}
+        </>;
     } else {
         timerContent = (
         <p>
-            Starting in {timeRemaining.days} days {timeRemaining.hours} hours {timeRemaining.minutes} minutes {timeRemaining.seconds} seconds
+            Starting in
+            {timeRemaining.days > 0 && (' ' + timeRemaining.days + ' days ')}
+            {(timeRemaining.hours > 0 || timeRemaining.days > 0) && (timeRemaining.hours + ' hours ')}
+            {(timeRemaining.minutes > 0 || timeRemaining.hours > 0 || timeRemaining.days > 0) && (timeRemaining.minutes + ' minutes ')}
+            {timeRemaining.seconds} seconds
         </p>
         );
     }

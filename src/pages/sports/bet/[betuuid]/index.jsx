@@ -42,6 +42,16 @@ export default function Sports() {
         return true;
     }
 
+    function getEventEnded(rawStartDate, rawEndDate) {
+        const startDate = parseFormattedDate(rawStartDate);
+        const endDate = parseFormattedDate(rawEndDate);
+        const currentDate = new Date();
+        if (currentDate>=endDate) {
+            return true;
+        }
+        return false;
+    }
+
     function formatDateTime(dateValue){
         const unixTimestamp = parseInt(dateValue);
         const date = new Date(unixTimestamp * 1000);
@@ -258,14 +268,25 @@ export default function Sports() {
 
     useEffect(() => {
         const timer = setInterval(() => {
+            const eventEnded = getEventEnded(formatStartDate(betData), formatEndDate(betData));
             setAcceptBets(getAcceptBets(formatStartDate(betData), formatEndDate(betData)));
+            if (eventEnded) {
+                console.log("event ended");
+                clearInterval(timer);
+                try{
+                    getBetData();
+                    getChildBets();
+                }catch(err){
+                    console.log('err',err)
+                }
+            }
             // console.log(getAcceptBets(formatStartDate(betData), formatEndDate(betData)));
         }, 1000);
     
         return () => {
             clearInterval(timer);
         };
-    }, [betData]);
+    }, [betData, BetUuid]);
     
 
     const renderedChildBets = childBetsData.map(childBet=>
@@ -299,6 +320,7 @@ export default function Sports() {
                                 <Timer
                                     rawStartDate={formatDateTime(betData.startDate)}
                                     rawEndDate={formatDateTime(betData.endDate)}
+                                    goToBets={true}
                                 />
                             </div>
                             {/* <button href="#" className={styleGlobal.btnTypeTwo}>

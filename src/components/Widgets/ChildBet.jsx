@@ -204,12 +204,6 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
     }
 
     const openBetModal = (index, name, bet, match, odds) => {
-        let inputValue = 0;
-        let profit = inputValue * odds;
-        const handleInputChange = (e) => {
-            inputValue = e.target.value;
-            profit = inputValue * odds;
-        };
         const modalContent = (
             <form onSubmit={(e)=>{onSubmitBuyBet(e,index)}} action=''>
                 <h6 className={styleBet.popName}>{name}</h6>
@@ -234,9 +228,8 @@ export default function ChildBet({ uuid, matchTitle, name, options, winnerOption
                     name='amount'
                     placeholder='Enter $FLOW amount to bet'
                     className={styleBet.popInput}
-                    onChange={handleInputChange}
+                    min={0.1}
                 />
-                <p className={styleBet.popProfit}>Profit: {profit}</p>
                 {user.loggedIn == null ? (
                     // <button disabled>Connect wallet to place bet</button>
                     <button disabled className={styleBet.popButtonDis}>Connect wallet to place bet</button>

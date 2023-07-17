@@ -5,7 +5,8 @@
 .statusTimeLeft { font-size: var(--font-size-s); color: var(--sec-text-color);}
 
 .names { display: inline-flex; flex-direction: column; justify-content: space-around; gap: .8rem; margin-bottom: 2rem; }
-.names .nameAContainer, .names .nameBContainer { display: flex; gap: 1.5rem; justify-content: space-between;}
+.names .nameAContainer, .names .nameBContainer { display: flex; gap: 1.5rem; justify-content: space-between; }
+.nameAContainer { justify-content: flex-start!important; }
 .nameA, .nameB { font-size: var(--font-size);}
 .scores { display: flex; gap: 1rem;}
 .nameAScore, .nameBScore { background-color: var(--sec-color); padding: .2rem .7rem; border-radius: 5px;}

@@ -1,7 +1,7 @@
 
 
 .betSection { padding: 2rem 0;}
-.betTitle { display: flex; flex-direction: column; margin-bottom: 2rem; gap: 1rem;}
+.betTitle { display: flex; flex-direction: column; margin-bottom: 2rem; gap: 1rem; width: 100%; }
 .name { font-size: var(--font-size-l); }
 .status { color: var(--sec-text-color); font-size: var(--font-size);}
 .statusLive { background-color: var(--red-bg); display: inline-flex; align-items: center; border-radius: 5px; padding: .1rem .6rem; gap: .4rem;}
@@ -13,7 +13,7 @@
 .childSelection { background-color: var(--sec-color); border-radius: 5px; margin-bottom: .2rem; display: flex; flex-direction: row;
     flex: 0 0 calc(50% - .5rem); box-sizing: border-box; justify-content: space-around; padding: .5rem 0rem; cursor: pointer; border: none; }
 .childSelection:hover { background-color: var(--sec-color-hover);}
-.childSelection[disabled] { background-color: var(--stroke-color); }
+.childSelection[disabled] { background-color: var(--stroke-color); cursor: unset; }
 .childSelection[disabled] .option, .childSelection[disabled] .odds  { color: var(--ter-color-hover); }
 .childSelection[data-winner='true'] { background-color: var(--pri-color); }
 .childSelection[data-winner='true'] .option, .childSelection[data-winner='true'] .odds { color: var(--ter-color);}

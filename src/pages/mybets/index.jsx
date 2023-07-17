@@ -2,9 +2,12 @@ import { useContext, useState, useEffect } from 'react'
 import { DataContext } from '@/context/DataContext'
 import * as fcl from "@onflow/fcl";
 import MyOpenBet from '@/components/Widgets/MyOpenBet';
+import Image from 'next/image';
 
 import styleMyBets from '@/assets/styles/MyBets.module.css';
+import styleGlobal from '@/assets/styles/Global.module.css';
 import MyFinishedBet from '@/components/Widgets/MyFinishedBet';
+import PopUp from '@/components/Widgets/PopUp';
 
 export default function myBets() {
     const { user } = useContext(DataContext);
@@ -95,14 +98,40 @@ export default function myBets() {
         getBets()
         getFinishedBets()
     }, [user])
-    return (
+    return <>
+    <PopUp />
     <div className={styleMyBets.mybets}>
         <div className="container">
-            <h1>My bets</h1>
-            {renderedOpenBets}
-            <h1>My finished bets</h1>
-            {renderFinishedBets}
+            <h1>
+                My bets
+                {user.loggedIn && 
+                    <>
+                        <button className={styleGlobal.btnTypeFive + ' ms-3 p-0 align-bottom'} onClick={() => window.location.reload()}>
+                            <Image
+                                src="./icons/refresh.svg"
+                                alt='Refresh'
+                                width={24}
+                                height={24}
+                            />
+                        </button>
+                    </>}
+            </h1>
+            {user.loggedIn ?
+                <>
+                    {openBets.length > 0 ? (renderedOpenBets) : <p>No open bets<br /><br /></p>}
+                    {finishedBets.length > 0 && <>
+                        <h1>My claimed bets</h1>
+                        {renderFinishedBets}
+                    </>}
+                </>
+            :
+                <>
+                    <p>
+                        Connect wallet to continue
+                    </p>
+                </>
+            }
         </div>
     </div>
-    )
+    </>
 }

@@ -14,43 +14,7 @@ export default function BetModal() {
       setBetModalStatus('');
     }
   };
-
-  // let statusContent = null;
-
-  // if (BetModalStatus === 'success') {
-  //   statusContent = (
-  //     <Image
-  //       src={"/icons/" + BetModalStatus + "-i.svg"}
-  //       alt="Status icon"
-  //       width={24}
-  //       height={24}
-  //     />
-  //   );
-  // } else if (BetModalStatus === 'danger') {
-  //   statusContent = (
-  //     <Image
-  //       src={"/icons/" + BetModalStatus + "-i.svg"}
-  //       alt="Status icon"
-  //       width={24}
-  //       height={24}
-  //     />
-  //   );
-  // } else if (BetModalStatus === 'loading') {
-  //   statusContent = (
-  //     <div className={style.loadingWheel}>
-  //       <div className={style.wheel}></div>
-  //     </div>
-  //   );
-  // } else {
-  //   statusContent = (
-  //     <Image
-  //       src={"/icons/info-i.svg"}
-  //       alt="Status icon"
-  //       width={24}
-  //       height={24}
-  //     />
-  //   );
-  // }
+  
   if (!BetModalActive) {
     return null;
   }

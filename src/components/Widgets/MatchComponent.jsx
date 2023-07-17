@@ -1,9 +1,74 @@
+import { useState, useEffect } from 'react';
+import * as fcl from "@onflow/fcl";
+
 import Image from 'next/image'
 import Link from 'next/link'
+import Timer from './Timer';
 
 import style from '@/assets/styles/Match.module.css'
 
 export default function MatchComponent({ subcategory, category, id, match, matchType }) {
+
+    const [ loadingBetData, setLoadingBetData] = useState(true);
+    const [ startDate, setStartDate ] = useState(null);
+    const [ endDate, setEndDate ] = useState(null);
+
+    function formatDateTime(dateValue){
+        const unixTimestamp = parseInt(dateValue);
+        const date = new Date(unixTimestamp * 1000);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // Months are zero-based, so add 1
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+        const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        //console.log(formattedDate);
+        return formattedDate;
+    }
+
+    async function getBetData(BetUuid) {
+        if(BetUuid==undefined || loadingBetData == false){
+            return
+        }
+        
+        const response = await fcl.query({
+            cadence: `
+                import FlowBetPalace from 0xd19f554fdb83f838
+
+                pub fun main(uuid:String) :FlowBetPalace.BetDataStruct{
+                    // Get the accounts' public account objects
+                    let acct1 = getAccount(0xd19f554fdb83f838)
+                    //get bet path
+                    let betPath = PublicPath(identifier: "bet".concat(uuid))!
+                    // Get references to the account's receivers
+                    // by getting their public capability
+                    // and borrowing a reference from the capability
+                    let betRef = acct1.getCapability(betPath)
+                                          .borrow<&AnyResource{FlowBetPalace.BetPublicInterface}>()
+                                          ?? panic("Could not borrow acct1 vault reference")
+                
+                    let betData = betRef.getBetData()
+                    return betData
+                }
+            `,
+            args: (arg, t) => [
+                arg(BetUuid, t.String),
+            ]
+        },)
+        setStartDate(parseInt(response.startDate));
+        setEndDate(parseInt(response.endDate));
+        setLoadingBetData(false)
+
+    }
+    useEffect(() => {
+        try{
+            getBetData(id);
+        }catch(err){
+            console.log('err',err)
+        }
+    },[id])
+
     return (
         <div className={style.match}>
             <div className="container">
@@ -19,7 +84,12 @@ export default function MatchComponent({ subcategory, category, id, match, match
                                     <p className={style.nameBScore}>?</p>
                                 </div>
                             </div>
-                            <p className={style.category}>{category}</p>
+                            <p className={style.category}>{matchType}</p>
+                            <Timer
+                                rawStartDate={formatDateTime(startDate)}
+                                rawEndDate={formatDateTime(endDate)}
+                                goToBets={false}
+                            />
                             {/* <div className={style.nameBContainer}>
                                 <p className={style.nameB}>
                                     {match}

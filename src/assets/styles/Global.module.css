@@ -13,6 +13,8 @@
 .btnTypeTwo { background-color: var(--white); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content; cursor: pointer; }
 .btnTypeTwo:hover { background-color: var(--white-hover);}
 .btnTypeTwoInactive { background-color: var(--stroke-color); color: var(--ter-color); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; height: fit-content; }
+.btnTypeTwo[disabled] { color: #EB6D8B!important; background-color: var(--stroke-color); cursor: unset; }
+.btnTypeTwo:hover[disabled] { background-color: var(--stroke-color); }
 
 /* Tabbed Navigation Button */
 .btnTypeThree.active { background-color: var(--pri-color); color: var(--text-color-black); border: 0; border-radius: 5px; padding: .6rem 1rem; font-size: var(--font-size); font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; text-decoration: none; display: inline-block; }

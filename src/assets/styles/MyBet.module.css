@@ -9,6 +9,7 @@
 .betContainer { display: flex; justify-content: space-between; }
 .leftSection { display: flex; gap: 1rem; align-items: center; }
 .rightSection { display: flex; gap: 3rem;}
+.bottomSection {  }
 
 
 @media (max-width: 1399.98px) {}
