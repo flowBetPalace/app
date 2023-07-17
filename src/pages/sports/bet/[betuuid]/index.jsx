@@ -308,6 +308,11 @@ export default function Sports() {
     const validCategories = ["soccer", "basket", "nfl", "mma", "motogp"];
 
     return <>
+        <Head>
+            <title>{betData.name}</title>
+            <meta name="description" content="Thetatix web app" />
+            <link rel="icon" href="/favicon.ico" />
+        </Head>
         <BetModal />
         <PopUp />
         <div className={styleBet.betSectionNft}>

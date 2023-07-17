@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 import { DataContext } from '@/context/DataContext'
 import * as fcl from "@onflow/fcl";
 import MyOpenBet from '@/components/Widgets/MyOpenBet';
+import Head from 'next/head';
 import Image from 'next/image';
 
 import styleMyBets from '@/assets/styles/MyBets.module.css';
@@ -99,6 +100,11 @@ export default function myBets() {
         getFinishedBets()
     }, [user])
     return <>
+    <Head>
+        <title>FlowBetPalace - My Bets</title>
+        <meta name="description" content="Thetatix web app" />
+        <link rel="icon" href="/favicon.ico" />
+    </Head>
     <PopUp />
     <div className={styleMyBets.mybets}>
         <div className="container">
