@@ -156,7 +156,7 @@ export default function Sports() {
 
                         {/* Tab content */}
                         <div className={styleSports.tabContent}>
-                            {labeledData.map((data) => (
+                            {labeledData.slice().reverse().map((data) => (
                                 <MatchComponent
                                     key={data.id}
                                     subcategory={data.subcategory}

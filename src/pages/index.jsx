@@ -191,7 +191,7 @@ export default function Home() {
             } */}
 
 
-            {matchesData.map((match) => (
+            {matchesData.slice().reverse().map((match) => (
                 <Match
                   key={match[0]}
                   subcategory={match[4]}
@@ -199,16 +199,6 @@ export default function Home() {
                   id={match[0]}
                   match={match[1]}
                   matchType={match[2]}
-                  // category={match.category}
-                  // nameA={match.nameA}
-                  // nameB={match.nameB}
-                  // scoreA={match.scoreA}
-                  // scoreB={match.scoreB}
-                  // winner={match.winner}
-                  // startDate={match.startDate}
-                  // bets={match.bets}
-                  // liquidity={match.liquidity}
-                  // matchContractAddress={match.matchContractAddress}
                 />
               )
             )}
